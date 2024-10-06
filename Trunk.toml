@@ -1,0 +1,4 @@
+# [[hooks]]
+# stage = "build"
+# command = "sh"
+# command_arguments = ["-c", "node node_modules/postcss-cli/index.js src/styles/main.css --output $TRUNK_STAGING_DIR/css/main.css"]

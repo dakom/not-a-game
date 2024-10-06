@@ -1,0 +1,195 @@
+{
+  "imagePath": "sprites.png",
+  "anchor_x": 63,
+  "SubTexture": [
+    {
+      "name": "shoot_01.png",
+      "x": "910",
+      "y": "607",
+      "width": "110",
+      "height": "297"
+    },
+    {
+      "name": "shoot_02.png",
+      "x": "910",
+      "y": "302",
+      "width": "122",
+      "height": "295"
+    },
+    {
+      "name": "shoot_03.png",
+      "x": "624",
+      "y": "601",
+      "width": "138",
+      "height": "291"
+    },
+    {
+      "name": "shoot_04.png",
+      "x": "471",
+      "y": "598",
+      "width": "143",
+      "height": "289"
+    },
+    {
+      "name": "shoot_05.png",
+      "x": "471",
+      "y": "598",
+      "width": "143",
+      "height": "289"
+    },
+    {
+      "name": "shoot_06.png",
+      "x": "244",
+      "y": "0",
+      "width": "143",
+      "height": "289"
+    },
+    {
+      "name": "shoot_07.png",
+      "x": "624",
+      "y": "302",
+      "width": "143",
+      "height": "289"
+    },
+    {
+      "name": "shoot_08.png",
+      "x": "219",
+      "y": "302",
+      "width": "143",
+      "height": "289"
+    },
+    {
+      "name": "shoot_09.png",
+      "x": "372",
+      "y": "299",
+      "width": "143",
+      "height": "289"
+    },
+    {
+      "name": "shoot_10.png",
+      "x": "318",
+      "y": "601",
+      "width": "143",
+      "height": "289"
+    },
+    {
+      "name": "shoot_11.png",
+      "x": "397",
+      "y": "0",
+      "width": "143",
+      "height": "289"
+    },
+    {
+      "name": "shoot_12.png",
+      "x": "703",
+      "y": "0",
+      "width": "136",
+      "height": "291"
+    },
+    {
+      "name": "shoot_13.png",
+      "x": "772",
+      "y": "601",
+      "width": "128",
+      "height": "292"
+    },
+    {
+      "name": "shoot_14.png",
+      "x": "849",
+      "y": "0",
+      "width": "123",
+      "height": "292"
+    },
+    {
+      "name": "shoot_15.png",
+      "x": "550",
+      "y": "0",
+      "width": "143",
+      "height": "292"
+    },
+    {
+      "name": "shoot_16.png",
+      "x": "0",
+      "y": "0",
+      "width": "234",
+      "height": "292"
+    },
+    {
+      "name": "shoot_17.png",
+      "x": "0",
+      "y": "302",
+      "width": "209",
+      "height": "292"
+    },
+    {
+      "name": "shoot_18.png",
+      "x": "0",
+      "y": "604",
+      "width": "150",
+      "height": "292"
+    },
+    {
+      "name": "shoot_19.png",
+      "x": "160",
+      "y": "604",
+      "width": "148",
+      "height": "292"
+    },
+    {
+      "name": "shoot_20.png",
+      "x": "160",
+      "y": "604",
+      "width": "148",
+      "height": "292"
+    },
+    {
+      "name": "shoot_21.png",
+      "x": "160",
+      "y": "604",
+      "width": "148",
+      "height": "292"
+    },
+    {
+      "name": "shoot_22.png",
+      "x": "160",
+      "y": "604",
+      "width": "148",
+      "height": "292"
+    },
+    {
+      "name": "shoot_23.png",
+      "x": "160",
+      "y": "604",
+      "width": "148",
+      "height": "292"
+    },
+    {
+      "name": "shoot_24.png",
+      "x": "160",
+      "y": "604",
+      "width": "148",
+      "height": "292"
+    },
+    {
+      "name": "shoot_25.png",
+      "x": "160",
+      "y": "604",
+      "width": "148",
+      "height": "292"
+    },
+    {
+      "name": "shoot_26.png",
+      "x": "160",
+      "y": "604",
+      "width": "148",
+      "height": "292"
+    },
+    {
+      "name": "shoot_27.png",
+      "x": "160",
+      "y": "604",
+      "width": "148",
+      "height": "292"
+    }
+  ]
+}

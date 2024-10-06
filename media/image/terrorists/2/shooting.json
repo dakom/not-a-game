@@ -1,0 +1,98 @@
+{
+  "imagePath": "sprites.png",
+  "anchor_x": 63,
+  "cell_duration": 1.0,
+  "SubTexture": [
+    {
+      "name": "shooting_01.png",
+      "x": "718",
+      "y": "314",
+      "width": "166",
+      "height": "304"
+    },
+    {
+      "name": "shooting_02.png",
+      "x": "0",
+      "y": "628",
+      "width": "174",
+      "height": "305"
+    },
+    {
+      "name": "shooting_03.png",
+      "x": "184",
+      "y": "628",
+      "width": "170",
+      "height": "305"
+    },
+    {
+      "name": "shooting_04.png",
+      "x": "242",
+      "y": "0",
+      "width": "167",
+      "height": "305"
+    },
+    {
+      "name": "shooting_05.png",
+      "x": "364",
+      "y": "315",
+      "width": "167",
+      "height": "305"
+    },
+    {
+      "name": "shooting_06.png",
+      "x": "419",
+      "y": "0",
+      "width": "167",
+      "height": "304"
+    },
+    {
+      "name": "shooting_07.png",
+      "x": "541",
+      "y": "628",
+      "width": "166",
+      "height": "304"
+    },
+    {
+      "name": "shooting_08.png",
+      "x": "541",
+      "y": "314",
+      "width": "167",
+      "height": "304"
+    },
+    {
+      "name": "shooting_09.png",
+      "x": "596",
+      "y": "0",
+      "width": "166",
+      "height": "304"
+    },
+    {
+      "name": "shooting_10.png",
+      "x": "0",
+      "y": "314",
+      "width": "231",
+      "height": "304"
+    },
+    {
+      "name": "shooting_11.png",
+      "x": "364",
+      "y": "630",
+      "width": "167",
+      "height": "304"
+    },
+    {
+      "name": "shooting_12.png",
+      "x": "0",
+      "y": "0",
+      "width": "232",
+      "height": "304"
+    },
+    {
+      "name": "shooting_13.png",
+      "x": "717",
+      "y": "628",
+      "width": "166",
+      "height": "305"
+    }
+  ]
+}

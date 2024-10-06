@@ -1,0 +1,117 @@
+:root {
+    box-sizing: border-box;
+
+    font-size: 16px;
+
+    /* define these as CSS vars */
+
+    --color-darkest: #11131A;
+    --color-accent: #03ff7b;
+    --color-accent-darker: #10ca60;
+    --color-whiteish: #FCFAFA;
+    --color-darkish: #45474F;
+    --color-grey: #92949F;
+    --color-grey-alt1: #D9D9D9;
+    --color-grey-alt2: #EFEFEF;
+    --color-focus: #73A2FF;
+    --color-red: #E00C0C;
+    --color-red-darker: #B80C0C;
+    --color-orange: #ED933F;
+    --color-orange-darker: #D17F3A;
+    --color-green: #3AD365;
+    --color-green-darker: #2E9F4A;
+    --color-pure-white: #FFFFFF;
+    --color-blue: #0038b8;
+    --color-blue-darker: #002e96;
+}
+
+*, ::before, ::after {
+    box-sizing: inherit;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: "Inter", sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color-blue);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding: 4rem;
+    background-color: var(--color-whiteish);
+    color: var(--color-darkish);
+}
+
+.button {
+    display: inline-block;
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: var(--color-blue);
+    color: var(--color-pure-white);
+    font-size: 1.5rem;
+}
+
+.button:hover {
+    background-color: var(--color-blue-darker);
+}
+
+.github-button {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.github-button > img {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+p, ul {
+    font-size: 1.2rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+.h1 {
+    font-size: 2.5rem;
+}
+
+.h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.h3 {
+    font-size: 1.7rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.h4 {
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}

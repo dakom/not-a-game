@@ -1,0 +1,167 @@
+{
+  "imagePath": "sprites.png",
+  "anchor_x": 63,
+  "SubTexture": [
+    {
+      "name": "idle_01.png",
+      "x": "177",
+      "y": "948",
+      "width": "166",
+      "height": "304"
+    },
+    {
+      "name": "idle_02.png",
+      "x": "355",
+      "y": "0",
+      "width": "166",
+      "height": "305"
+    },
+    {
+      "name": "idle_03.png",
+      "x": "1062",
+      "y": "0",
+      "width": "167",
+      "height": "305"
+    },
+    {
+      "name": "idle_04.png",
+      "x": "354",
+      "y": "946",
+      "width": "167",
+      "height": "305"
+    },
+    {
+      "name": "idle_05.png",
+      "x": "885",
+      "y": "634",
+      "width": "167",
+      "height": "306"
+    },
+    {
+      "name": "idle_06.png",
+      "x": "708",
+      "y": "633",
+      "width": "167",
+      "height": "306"
+    },
+    {
+      "name": "idle_07.png",
+      "x": "708",
+      "y": "317",
+      "width": "167",
+      "height": "306"
+    },
+    {
+      "name": "idle_08.png",
+      "x": "177",
+      "y": "632",
+      "width": "167",
+      "height": "306"
+    },
+    {
+      "name": "idle_09.png",
+      "x": "354",
+      "y": "630",
+      "width": "167",
+      "height": "306"
+    },
+    {
+      "name": "idle_10.png",
+      "x": "531",
+      "y": "0",
+      "width": "167",
+      "height": "307"
+    },
+    {
+      "name": "idle_11.png",
+      "x": "0",
+      "y": "0",
+      "width": "168",
+      "height": "307"
+    },
+    {
+      "name": "idle_12.png",
+      "x": "885",
+      "y": "0",
+      "width": "167",
+      "height": "307"
+    },
+    {
+      "name": "idle_13.png",
+      "x": "708",
+      "y": "0",
+      "width": "167",
+      "height": "307"
+    },
+    {
+      "name": "idle_14.png",
+      "x": "531",
+      "y": "633",
+      "width": "167",
+      "height": "307"
+    },
+    {
+      "name": "idle_15.png",
+      "x": "1062",
+      "y": "315",
+      "width": "167",
+      "height": "307"
+    },
+    {
+      "name": "idle_16.png",
+      "x": "885",
+      "y": "317",
+      "width": "167",
+      "height": "307"
+    },
+    {
+      "name": "idle_17.png",
+      "x": "1062",
+      "y": "632",
+      "width": "167",
+      "height": "306"
+    },
+    {
+      "name": "idle_18.png",
+      "x": "0",
+      "y": "633",
+      "width": "167",
+      "height": "306"
+    },
+    {
+      "name": "idle_19.png",
+      "x": "0",
+      "y": "317",
+      "width": "167",
+      "height": "306"
+    },
+    {
+      "name": "idle_20.png",
+      "x": "531",
+      "y": "317",
+      "width": "167",
+      "height": "306"
+    },
+    {
+      "name": "idle_21.png",
+      "x": "354",
+      "y": "315",
+      "width": "167",
+      "height": "305"
+    },
+    {
+      "name": "idle_22.png",
+      "x": "177",
+      "y": "317",
+      "width": "167",
+      "height": "305"
+    },
+    {
+      "name": "idle_23.png",
+      "x": "178",
+      "y": "0",
+      "width": "167",
+      "height": "305"
+    }
+  ]
+}

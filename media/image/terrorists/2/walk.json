@@ -1,0 +1,167 @@
+{
+  "imagePath": "sprites.png",
+  "anchor_x": 63,
+  "SubTexture": [
+    {
+      "name": "walk_01.png",
+      "x": "1068",
+      "y": "318",
+      "width": "166",
+      "height": "305"
+    },
+    {
+      "name": "walk_02.png",
+      "x": "537",
+      "y": "926",
+      "width": "167",
+      "height": "305"
+    },
+    {
+      "name": "walk_03.png",
+      "x": "538",
+      "y": "0",
+      "width": "167",
+      "height": "304"
+    },
+    {
+      "name": "walk_04.png",
+      "x": "891",
+      "y": "315",
+      "width": "167",
+      "height": "302"
+    },
+    {
+      "name": "walk_05.png",
+      "x": "361",
+      "y": "304",
+      "width": "167",
+      "height": "301"
+    },
+    {
+      "name": "walk_06.png",
+      "x": "181",
+      "y": "924",
+      "width": "168",
+      "height": "299"
+    },
+    {
+      "name": "walk_07.png",
+      "x": "359",
+      "y": "936",
+      "width": "167",
+      "height": "297"
+    },
+    {
+      "name": "walk_08.png",
+      "x": "714",
+      "y": "938",
+      "width": "167",
+      "height": "294"
+    },
+    {
+      "name": "walk_09.png",
+      "x": "891",
+      "y": "627",
+      "width": "167",
+      "height": "291"
+    },
+    {
+      "name": "walk_10.png",
+      "x": "182",
+      "y": "622",
+      "width": "167",
+      "height": "289"
+    },
+    {
+      "name": "walk_11.png",
+      "x": "184",
+      "y": "0",
+      "width": "168",
+      "height": "294"
+    },
+    {
+      "name": "walk_12.png",
+      "x": "714",
+      "y": "631",
+      "width": "167",
+      "height": "297"
+    },
+    {
+      "name": "walk_13.png",
+      "x": "537",
+      "y": "615",
+      "width": "167",
+      "height": "301"
+    },
+    {
+      "name": "walk_14.png",
+      "x": "359",
+      "y": "622",
+      "width": "168",
+      "height": "304"
+    },
+    {
+      "name": "walk_15.png",
+      "x": "183",
+      "y": "307",
+      "width": "168",
+      "height": "305"
+    },
+    {
+      "name": "walk_16.png",
+      "x": "1068",
+      "y": "0",
+      "width": "167",
+      "height": "308"
+    },
+    {
+      "name": "walk_17.png",
+      "x": "714",
+      "y": "314",
+      "width": "167",
+      "height": "307"
+    },
+    {
+      "name": "walk_18.png",
+      "x": "891",
+      "y": "0",
+      "width": "167",
+      "height": "305"
+    },
+    {
+      "name": "walk_19.png",
+      "x": "0",
+      "y": "613",
+      "width": "172",
+      "height": "301"
+    },
+    {
+      "name": "walk_20.png",
+      "x": "0",
+      "y": "0",
+      "width": "174",
+      "height": "297"
+    },
+    {
+      "name": "walk_21.png",
+      "x": "0",
+      "y": "307",
+      "width": "173",
+      "height": "296"
+    },
+    {
+      "name": "walk_22.png",
+      "x": "0",
+      "y": "924",
+      "width": "171",
+      "height": "301"
+    },
+    {
+      "name": "walk_23.png",
+      "x": "891",
+      "y": "928",
+      "width": "167",
+      "height": "305"
+    }
+  ]
+}

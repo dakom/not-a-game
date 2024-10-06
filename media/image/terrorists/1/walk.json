@@ -1,0 +1,145 @@
+{
+  "imagePath": "sprites.png",
+  "SubTexture": [
+    {
+      "name": "walk_01.png",
+      "x": "0",
+      "y": "609",
+      "width": "149",
+      "height": "300"
+    },
+    {
+      "name": "walk_02.png",
+      "x": "159",
+      "y": "609",
+      "width": "146",
+      "height": "300"
+    },
+    {
+      "name": "walk_03.png",
+      "x": "313",
+      "y": "0",
+      "width": "141",
+      "height": "300"
+    },
+    {
+      "name": "walk_04.png",
+      "x": "315",
+      "y": "310",
+      "width": "137",
+      "height": "299"
+    },
+    {
+      "name": "walk_05.png",
+      "x": "460",
+      "y": "619",
+      "width": "133",
+      "height": "299"
+    },
+    {
+      "name": "walk_06.png",
+      "x": "603",
+      "y": "313",
+      "width": "130",
+      "height": "299"
+    },
+    {
+      "name": "walk_07.png",
+      "x": "462",
+      "y": "313",
+      "width": "129",
+      "height": "296"
+    },
+    {
+      "name": "walk_08.png",
+      "x": "605",
+      "y": "0",
+      "width": "128",
+      "height": "293"
+    },
+    {
+      "name": "walk_09.png",
+      "x": "743",
+      "y": "314",
+      "width": "127",
+      "height": "294"
+    },
+    {
+      "name": "walk_10.png",
+      "x": "880",
+      "y": "623",
+      "width": "127",
+      "height": "295"
+    },
+    {
+      "name": "walk_11.png",
+      "x": "880",
+      "y": "314",
+      "width": "127",
+      "height": "299"
+    },
+    {
+      "name": "walk_12.png",
+      "x": "881",
+      "y": "0",
+      "width": "127",
+      "height": "301"
+    },
+    {
+      "name": "walk_13.png",
+      "x": "742",
+      "y": "622",
+      "width": "128",
+      "height": "304"
+    },
+    {
+      "name": "walk_14.png",
+      "x": "743",
+      "y": "0",
+      "width": "128",
+      "height": "304"
+    },
+    {
+      "name": "walk_15.png",
+      "x": "603",
+      "y": "622",
+      "width": "129",
+      "height": "305"
+    },
+    {
+      "name": "walk_16.png",
+      "x": "464",
+      "y": "0",
+      "width": "131",
+      "height": "303"
+    },
+    {
+      "name": "walk_17.png",
+      "x": "315",
+      "y": "619",
+      "width": "135",
+      "height": "300"
+    },
+    {
+      "name": "walk_18.png",
+      "x": "161",
+      "y": "0",
+      "width": "142",
+      "height": "299"
+    },
+    {
+      "name": "walk_19.png",
+      "x": "0",
+      "y": "305",
+      "width": "151",
+      "height": "294"
+    },
+    {
+      "name": "walk_20.png",
+      "x": "0",
+      "y": "0",
+      "width": "151",
+      "height": "295"
+    }
+  ]
+}

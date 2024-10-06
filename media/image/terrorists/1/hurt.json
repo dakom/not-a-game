@@ -1,0 +1,96 @@
+{
+  "imagePath": "sprites.png",
+  "SubTexture": [
+    {
+      "name": "hurt_01.png",
+      "x": "1015",
+      "y": "621",
+      "width": "162",
+      "height": "304"
+    },
+    {
+      "name": "hurt_02.png",
+      "x": "214",
+      "y": "600",
+      "width": "202",
+      "height": "296"
+    },
+    {
+      "name": "hurt_03.png",
+      "x": "0",
+      "y": "0",
+      "width": "208",
+      "height": "289"
+    },
+    {
+      "name": "hurt_04.png",
+      "x": "0",
+      "y": "299",
+      "width": "207",
+      "height": "291"
+    },
+    {
+      "name": "hurt_05.png",
+      "x": "0",
+      "y": "600",
+      "width": "204",
+      "height": "293"
+    },
+    {
+      "name": "hurt_06.png",
+      "x": "218",
+      "y": "0",
+      "width": "201",
+      "height": "294"
+    },
+    {
+      "name": "hurt_07.png",
+      "x": "426",
+      "y": "304",
+      "width": "198",
+      "height": "296"
+    },
+    {
+      "name": "hurt_08.png",
+      "x": "426",
+      "y": "610",
+      "width": "195",
+      "height": "297"
+    },
+    {
+      "name": "hurt_09.png",
+      "x": "631",
+      "y": "610",
+      "width": "191",
+      "height": "298"
+    },
+    {
+      "name": "hurt_10.png",
+      "x": "634",
+      "y": "0",
+      "width": "188",
+      "height": "299"
+    },
+    {
+      "name": "hurt_11.png",
+      "x": "832",
+      "y": "0",
+      "width": "183",
+      "height": "300"
+    },
+    {
+      "name": "hurt_12.png",
+      "x": "832",
+      "y": "310",
+      "width": "178",
+      "height": "301"
+    },
+    {
+      "name": "hurt_13.png",
+      "x": "832",
+      "y": "621",
+      "width": "173",
+      "height": "302"
+    }
+  ]
+}

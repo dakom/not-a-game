@@ -1,0 +1,79 @@
+[package]
+name = "not-a-game"
+version = "0.1.0"
+edition = "2021"
+authors = ["David Komer <6406986+dakom@users.noreply.github.com>"]
+license = "MIT"
+
+[profile.release]
+opt-level = 3
+debug = false
+rpath = false
+lto = true
+debug-assertions = false
+codegen-units = 1
+panic = 'abort'
+incremental = false
+overflow-checks = true
+
+[profile.dev.package."*"]
+opt-level = 3
+
+# waiting on https://github.com/thedodd/trunk/issues/575
+# [lib]
+# crate-type = ["cdylib"]
+
+[dependencies]
+shipyard = { version = "0.6.2", default-features = false, features = ["proc","thread_local" ] }
+shipyard_scenegraph = { version = "0.6.1", default-features = false, features = ["nalgebra_glm_math"] }
+wasm-bindgen = "0.2.89"
+js-sys = "0.3.66"
+wasm-bindgen-futures= "0.4.39"
+gloo-events = "0.2.0"
+gloo-timers = { version = "0.3.0", features = ["futures"] }
+serde = "1.0.193"
+serde_json = "1.0.108"
+wasm-logger = { version = "0.2.0", optional = true }
+cfg-if = "1.0.0"
+log = "0.4.20"
+nalgebra-glm = "0.18.0"
+nalgebra = "0.32.3"
+console_error_panic_hook = { version = "0.1.7", optional = true }
+futures = "0.3.29"
+dominator = "0.5.34"
+futures-signals = "0.3.33"
+awsm_web = { version = "0.45.0", features = ["loaders", "dom", "tick", "serde_iso", "webgl", "audio"], default-features = false }
+# awsm_web = { version = "0.38.0", features = ["loaders", "dom", "tick", "serde_iso", "webgl", "debug_log"], default-features = false }
+# awsm_web = { path = "../../awsm-web/crate", version = "0.37.0", features = ["loaders", "dom", "tick", "serde_iso", "webgl"], default-features = false }
+serde-wasm-bindgen = "0.6.1"
+dominator_helpers = "0.7.2"
+chrono = "0.4.31"
+anyhow = "1.0.75"
+rand = "0.8.5"
+getrandom = { version = "0.2.11", features = ["js"] }
+
+[dependencies.web-sys]
+version = "0.3.66"
+features = [
+    "console",
+    "MouseEvent",
+    "Document",
+    "Element",
+    "HtmlAnchorElement",
+    "HtmlElement",
+    "HtmlButtonElement",
+    "HtmlImageElement",
+    "HtmlCanvasElement",
+    "CssStyleDeclaration",
+    "UrlSearchParams",
+    "Node",
+    "Window",
+    "Performance",
+    "KeyboardEvent",
+    "WheelEvent",
+    "VisibilityState"
+]
+[features]
+default = []
+# dev = ["wasm-logger", "console_error_panic_hook","awsm_web/unwrap_verbose", "awsm_renderer/dev", "awsm_web/debug_log"]
+dev = ["wasm-logger", "console_error_panic_hook","awsm_web/unwrap_verbose"]

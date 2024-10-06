@@ -1,0 +1,28 @@
+version: '3'
+
+dotenv: ['.env']
+
+vars:
+  MEDIA_DEV_PORT: 9000
+
+tasks:
+  dev:
+    desc: |
+      Starts the frontend in dev mode, run in its own terminal (not a background or one-off task)
+    deps: [internal-localmedia, "internal-dev-nomedia"]
+
+  build:
+    desc: Builds the frontend, only used in CI / final delivery 
+    cmds:
+      - trunk build --release --public-url=https://dakom.github.io/not-a-game/
+
+  internal-dev-nomedia:
+    internal: true
+    cmds:
+      - trunk serve --features dev
+
+  internal-localmedia:
+    internal: true
+    dir: ./media
+    cmds: 
+      - http-server --gzip --cors -p {{.MEDIA_DEV_PORT}}

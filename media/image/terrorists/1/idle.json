@@ -1,0 +1,166 @@
+{
+	"imagePath": "sprites.png",
+	"SubTexture": [
+	  {
+		"name": "idle_01.png",
+		"x": "950",
+		"y": "0",
+		"width": "146",
+		"height": "304"
+	  },
+	  {
+		"name": "idle_02.png",
+		"x": "792",
+		"y": "944",
+		"width": "147",
+		"height": "304"
+	  },
+	  {
+		"name": "idle_03.png",
+		"x": "793",
+		"y": "0",
+		"width": "147",
+		"height": "304"
+	  },
+	  {
+		"name": "idle_04.png",
+		"x": "792",
+		"y": "315",
+		"width": "147",
+		"height": "305"
+	  },
+	  {
+		"name": "idle_05.png",
+		"x": "949",
+		"y": "943",
+		"width": "147",
+		"height": "305"
+	  },
+	  {
+		"name": "idle_06.png",
+		"x": "635",
+		"y": "0",
+		"width": "148",
+		"height": "305"
+	  },
+	  {
+		"name": "idle_07.png",
+		"x": "634",
+		"y": "315",
+		"width": "148",
+		"height": "305"
+	  },
+	  {
+		"name": "idle_08.png",
+		"x": "318",
+		"y": "316",
+		"width": "148",
+		"height": "305"
+	  },
+	  {
+		"name": "idle_09.png",
+		"x": "476",
+		"y": "316",
+		"width": "148",
+		"height": "305"
+	  },
+	  {
+		"name": "idle_10.png",
+		"x": "159",
+		"y": "631",
+		"width": "149",
+		"height": "306"
+	  },
+	  {
+		"name": "idle_11.png",
+		"x": "0",
+		"y": "0",
+		"width": "149",
+		"height": "306"
+	  },
+	  {
+		"name": "idle_12.png",
+		"x": "159",
+		"y": "315",
+		"width": "149",
+		"height": "306"
+	  },
+	  {
+		"name": "idle_13.png",
+		"x": "318",
+		"y": "0",
+		"width": "149",
+		"height": "306"
+	  },
+	  {
+		"name": "idle_14.png",
+		"x": "0",
+		"y": "632",
+		"width": "149",
+		"height": "306"
+	  },
+	  {
+		"name": "idle_15.png",
+		"x": "0",
+		"y": "316",
+		"width": "149",
+		"height": "306"
+	  },
+	  {
+		"name": "idle_16.png",
+		"x": "159",
+		"y": "0",
+		"width": "149",
+		"height": "305"
+	  },
+	  {
+		"name": "idle_17.png",
+		"x": "634",
+		"y": "630",
+		"width": "148",
+		"height": "305"
+	  },
+	  {
+		"name": "idle_18.png",
+		"x": "477",
+		"y": "0",
+		"width": "148",
+		"height": "305"
+	  },
+	  {
+		"name": "idle_19.png",
+		"x": "476",
+		"y": "631",
+		"width": "148",
+		"height": "305"
+	  },
+	  {
+		"name": "idle_20.png",
+		"x": "318",
+		"y": "631",
+		"width": "148",
+		"height": "305"
+	  },
+	  {
+		"name": "idle_21.png",
+		"x": "949",
+		"y": "314",
+		"width": "147",
+		"height": "305"
+	  },
+	  {
+		"name": "idle_22.png",
+		"x": "949",
+		"y": "629",
+		"width": "147",
+		"height": "304"
+	  },
+	  {
+		"name": "idle_23.png",
+		"x": "792",
+		"y": "630",
+		"width": "147",
+		"height": "304"
+	  }
+	]
+  }
