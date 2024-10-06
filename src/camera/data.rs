@@ -11,22 +11,22 @@ pub struct Camera {
     pub buffer_id: Id,
     pub(super) _view_matrix: Mat4,
     pub(super) _proj_matrix: Mat4,
-    pub(super) _buffer_data: [f32;32],
+    pub(super) _buffer_data: [f32; 32],
 }
 
 impl Camera {
-    pub const Z_DEPTH:f32 = 100.0;
+    pub const Z_DEPTH: f32 = 100.0;
 
     pub fn new(renderer: &mut Renderer) -> Result<Self> {
         let buffer_id = renderer.create_buffer()?;
-        Ok(Self { 
+        Ok(Self {
             zoom: 1.0,
             x: 0.0,
             y: 0.0,
             buffer_id,
             _view_matrix: Mat4::identity(),
             _proj_matrix: Mat4::identity(),
-            _buffer_data: [0.0;32],
+            _buffer_data: [0.0; 32],
         })
     }
 

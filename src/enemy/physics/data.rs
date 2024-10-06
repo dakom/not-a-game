@@ -6,5 +6,5 @@ use crate::prelude::*;
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 pub enum EnemyDirection {
     Right,
-    Left
+    Left,
 }

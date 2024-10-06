@@ -1,22 +1,37 @@
 use nalgebra::Point3;
 
-use super::data::{ExplosionSpawnerViewMut, Explosion};
-use crate::{animation::data::Animation, audio::{AudioEvent, AudioEventQueue}, camera::CameraView, collision::data::Collider, layout::data::{LayoutAnchor, LayoutPosition}, prelude::*, tick::UpdateTickView};
+use super::data::{Explosion, ExplosionSpawnerViewMut};
+use crate::{
+    animation::data::Animation,
+    audio::{AudioEvent, AudioEventQueue},
+    camera::CameraView,
+    collision::data::Collider,
+    layout::data::{LayoutAnchor, LayoutPosition},
+    prelude::*,
+    tick::UpdateTickView,
+};
 
 pub fn explosion_spawn_sys(
     mut spawner: ExplosionSpawnerViewMut,
-    group: (ViewMut<Explosion>, ViewMut<LayoutPosition>, ViewMut<LayoutAnchor>, ViewMut<Animation>),
+    group: (
+        ViewMut<Explosion>,
+        ViewMut<LayoutPosition>,
+        ViewMut<LayoutAnchor>,
+        ViewMut<Animation>,
+    ),
     mut sg_storages: SceneGraphStoragesMut,
     mut rand: RandViewMut,
     mut audio_events: UniqueViewMut<AudioEventQueue>,
     camera: CameraView,
     colliders: View<Collider>,
-    tick: UpdateTickView 
+    tick: UpdateTickView,
 ) {
-
     let (mut explosions, mut positions, mut anchors, mut animations) = group;
 
-    let (width, height) = (spawner.spritesheet.max_cell_width, spawner.spritesheet.max_cell_height);
+    let (width, height) = (
+        spawner.spritesheet.max_cell_width,
+        spawner.spritesheet.max_cell_height,
+    );
 
     let animation = Animation::new(&spawner.spritesheet);
 
@@ -35,7 +50,8 @@ pub fn explosion_spawn_sys(
         let transform = sg_storages.local_transforms.get(to_spawn).unwrap();
 
         let bottom_left_point = transform.transform_point(&Point3::new(0.0, 0.0, 0.0));
-        let top_right_point = transform.transform_point(&Point3::new(collider.width, collider.height, 0.0));
+        let top_right_point =
+            transform.transform_point(&Point3::new(collider.width, collider.height, 0.0));
         let mut origin = bottom_left_point.coords;
 
         // it's already at the bottom_left, now we need to move it to the center of the box
@@ -49,16 +65,10 @@ pub fn explosion_spawn_sys(
 
         let entity = sg_storages.spawn_child_trs(None, Some(origin), None, None);
 
-        let explosion = Explosion {
-            explodee: to_spawn,
-        };
+        let explosion = Explosion { explodee: to_spawn };
 
-        (&mut explosions, &mut animations).add_component_unchecked(entity, 
-            (
-                explosion,
-                animation.clone(),
-            )
-        );
+        (&mut explosions, &mut animations)
+            .add_component_unchecked(entity, (explosion, animation.clone()));
 
         should_play_sound = true;
     }

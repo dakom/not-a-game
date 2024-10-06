@@ -1,4 +1,13 @@
-use crate::{audio::AudioEventQueue, controller::data::{Input, Key}, enemy::{attack::data::{AttackFour, AttackOne, AttackThree, AttackTwo}, launcher::data::LauncherSide, physics::data::EnemyDirection}, prelude::*};
+use crate::{
+    audio::AudioEventQueue,
+    controller::data::{Input, Key},
+    enemy::{
+        attack::data::{AttackFour, AttackOne, AttackThree, AttackTwo},
+        launcher::data::LauncherSide,
+        physics::data::EnemyDirection,
+    },
+    prelude::*,
+};
 
 use super::process::EnemyControllerInput;
 
@@ -25,7 +34,7 @@ pub trait EnemyController: EnemyControllerProcessInput {
             self.set_direction(direction);
         }
 
-        if let Some(hiding) = update.hiding{
+        if let Some(hiding) = update.hiding {
             self.set_hiding(hiding);
         }
 
@@ -36,7 +45,7 @@ pub trait EnemyController: EnemyControllerProcessInput {
 }
 
 pub trait EnemyControllerProcessInput {
-    fn process_input(&mut self, input: EnemyControllerInput, audio_events: &mut AudioEventQueue); 
+    fn process_input(&mut self, input: EnemyControllerInput, audio_events: &mut AudioEventQueue);
 }
 
 #[derive(Default)]
@@ -119,7 +128,7 @@ impl EnemyControllerTwo {
             hiding: None,
             attack: None,
             jump: None,
-            direction
+            direction,
         }
     }
 }
@@ -166,7 +175,7 @@ pub struct EnemyControllerThree {
     pub hiding: Option<Hiding>,
     pub attack: Option<AttackThree>,
     pub jump: Option<Jump>,
-    pub direction: EnemyDirection
+    pub direction: EnemyDirection,
 }
 
 impl EnemyControllerThree {
@@ -222,7 +231,7 @@ pub struct EnemyControllerFour {
     pub hiding: Option<Hiding>,
     pub attack: Option<AttackFour>,
     pub jump: Option<Jump>,
-    pub direction: EnemyDirection
+    pub direction: EnemyDirection,
 }
 
 impl EnemyControllerFour {
@@ -232,7 +241,7 @@ impl EnemyControllerFour {
             hiding: None,
             attack: None,
             jump: None,
-            direction
+            direction,
         }
     }
 }
@@ -279,15 +288,9 @@ pub enum HorizontalMovement {
 
 #[derive(Debug, PartialEq, Clone, Copy)]
 pub enum Hiding {
-    Down {
-        start_y: f32
-    },
-    Hidden {
-        start_y: f32
-    },
-    Up {
-        start_y: f32
-    },
+    Down { start_y: f32 },
+    Hidden { start_y: f32 },
+    Up { start_y: f32 },
 }
 
 #[derive(Debug, Clone)]

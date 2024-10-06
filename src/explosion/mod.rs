@@ -1,4 +1,4 @@
-pub mod data;
-pub mod systems;
-pub mod render;
 pub mod animation;
+pub mod data;
+pub mod render;
+pub mod systems;

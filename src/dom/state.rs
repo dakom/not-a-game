@@ -1,12 +1,11 @@
-use wasm_bindgen::JsCast;
-use web_sys::{Window, Document, HtmlElement, HtmlCanvasElement, WebGlRenderingContext, WebGl2RenderingContext};
-use awsm_web::window::get_window_size;
-use awsm_web::webgl::{
-    get_webgl_context_2, 
-    WebGlContextOptions, 
-};
-use futures::channel::oneshot;
 use crate::prelude::*;
+use awsm_web::webgl::{get_webgl_context_2, WebGlContextOptions};
+use awsm_web::window::get_window_size;
+use futures::channel::oneshot;
+use wasm_bindgen::JsCast;
+use web_sys::{
+    Document, HtmlCanvasElement, HtmlElement, WebGl2RenderingContext, WebGlRenderingContext, Window,
+};
 
 use super::canvas::Canvas;
 use super::ui::Ui;
@@ -31,10 +30,10 @@ impl DomState {
 
         // render the canvas and UI layers
         let (mut tx, mut rx) = oneshot::channel();
-        dominator::append_dom(&body, Canvas::render(tx)); 
+        dominator::append_dom(&body, Canvas::render(tx));
 
         let ui = Ui::new();
-        dominator::append_dom(&body, Ui::render(ui.clone())); 
+        dominator::append_dom(&body, Ui::render(ui.clone()));
 
         // but don't return until the canvas is really ready
         let canvas = rx.await.unwrap_ext();
@@ -44,7 +43,7 @@ impl DomState {
             window,
             document,
             body,
-            canvas
+            canvas,
         }
     }
 
@@ -53,12 +52,16 @@ impl DomState {
     }
 
     pub fn create_gl_context(&self) -> WebGl2RenderingContext {
-        get_webgl_context_2(&self.canvas, Some(&WebGlContextOptions {
-            alpha: false,
-            // required for blitFrameBuffer 
-            antialias: false,
-            stencil: true,
-            ..WebGlContextOptions::default()
-        })).unwrap_ext()
+        get_webgl_context_2(
+            &self.canvas,
+            Some(&WebGlContextOptions {
+                alpha: false,
+                // required for blitFrameBuffer
+                antialias: false,
+                stencil: true,
+                ..WebGlContextOptions::default()
+            }),
+        )
+        .unwrap_ext()
     }
 }

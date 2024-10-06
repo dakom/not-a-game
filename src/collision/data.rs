@@ -1,16 +1,16 @@
 use std::ops::{Deref, DerefMut};
 
-use nalgebra::{Point3, Point};
-use nalgebra_glm::{Vec2, Vec4, normalize};
+use nalgebra::{Point, Point3};
+use nalgebra_glm::{normalize, Vec2, Vec4};
 use web_sys::WebGlQuery;
 
-use crate::{prelude::*, spritesheet::SpriteSheet, renderer::uvs::Uvs, camera::Camera};
+use crate::{camera::Camera, prelude::*, renderer::uvs::Uvs, spritesheet::SpriteSheet};
 
 #[derive(Component, Debug, Default)]
 pub struct Collider {
     // hardcoded to 8 because we're representing a rect for now
     // i.e. 4 vertices, each with an x and y
-    pub vertices: [f32;8],
+    pub vertices: [f32; 8],
 
     pub height: f32,
     pub width: f32,
@@ -44,18 +44,28 @@ impl Collider {
     }
 
     pub fn center(&self) -> Vec2 {
-        let left = self.vertices[0].min(self.vertices[2]).min(self.vertices[4]).min(self.vertices[6]);
-        let right = self.vertices[0].max(self.vertices[2]).max(self.vertices[4]).max(self.vertices[6]);
-        let bottom = self.vertices[1].min(self.vertices[3]).min(self.vertices[5]).min(self.vertices[7]);
-        let top = self.vertices[1].max(self.vertices[3]).max(self.vertices[5]).max(self.vertices[7]);
+        let left = self.vertices[0]
+            .min(self.vertices[2])
+            .min(self.vertices[4])
+            .min(self.vertices[6]);
+        let right = self.vertices[0]
+            .max(self.vertices[2])
+            .max(self.vertices[4])
+            .max(self.vertices[6]);
+        let bottom = self.vertices[1]
+            .min(self.vertices[3])
+            .min(self.vertices[5])
+            .min(self.vertices[7]);
+        let top = self.vertices[1]
+            .max(self.vertices[3])
+            .max(self.vertices[5])
+            .max(self.vertices[7]);
 
         let x = left + ((right - left).abs() / 2.0);
         let y = bottom + ((top - bottom).abs() / 2.0);
 
         Vec2::new(left, bottom)
     }
-
-
 }
 
 pub type CollisionEventQueueViewMut<'a> = NonSendSync<UniqueViewMut<'a, CollisionEventQueue>>;
@@ -67,15 +77,16 @@ pub struct CollisionEventQueue {
 
 impl CollisionEventQueue {
     pub fn has_any_collision(&self, entity_a: EntityId, entity_b: EntityId) -> bool {
-        self.queue.iter().any(|e| (e.a.entity == entity_a && e.b.entity == entity_b) || (e.b.entity == entity_a && e.a.entity == entity_b))
+        self.queue.iter().any(|e| {
+            (e.a.entity == entity_a && e.b.entity == entity_b)
+                || (e.b.entity == entity_a && e.a.entity == entity_b)
+        })
     }
 }
 
 impl CollisionEventQueue {
     pub fn new() -> Self {
-        Self {
-            queue: Vec::new(),
-        }
+        Self { queue: Vec::new() }
     }
 }
 
@@ -97,13 +108,12 @@ pub struct CollisionEvent {
     pub a: CollisionEventTarget,
     pub b: CollisionEventTarget,
     pub occlusion_query: Option<WebGlQuery>,
-
 }
 
 #[derive(Debug)]
 pub struct CollisionEventTarget {
     pub entity: EntityId,
-    pub vertices: [f32;8],
-    pub uvs: [f32;8],
+    pub vertices: [f32; 8],
+    pub uvs: [f32; 8],
     pub texture_id: Id,
 }

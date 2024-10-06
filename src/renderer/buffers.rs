@@ -1,7 +1,7 @@
-use awsm_web::webgl::{WebGl2Renderer, BufferData, BufferTarget, BufferUsage};
+use awsm_web::webgl::{BufferData, BufferTarget, BufferUsage, WebGl2Renderer};
 
-use crate::prelude::*;
 use super::Renderer;
+use crate::prelude::*;
 
 pub struct Buffers {
     pub quad_geom: Id,
@@ -18,7 +18,6 @@ impl Buffers {
         1.0, 0.0, // bottom-right
     ];
     pub fn new(gl: &mut WebGl2Renderer) -> Result<Self> {
-
         let quad_geom = gl.create_buffer()?;
         gl.upload_buffer(
             quad_geom,
@@ -26,7 +25,7 @@ impl Buffers {
                 &Buffers::QUAD_GEOM_UNIT,
                 BufferTarget::ArrayBuffer,
                 BufferUsage::StaticDraw,
-            )
+            ),
         )?;
 
         let quad_uvs = gl.create_buffer()?;
@@ -37,7 +36,7 @@ impl Buffers {
             quad_geom,
             quad_uvs,
             collision_geom,
-            collision_uvs
+            collision_uvs,
         })
     }
 }

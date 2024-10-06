@@ -1,7 +1,6 @@
 use crate::prelude::*;
 
-pub struct GameOver {
-}
+pub struct GameOver {}
 
 impl GameOver {
     pub fn new() -> Self {

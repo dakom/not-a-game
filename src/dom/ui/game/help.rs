@@ -1,6 +1,10 @@
 use gloo_timers::future::TimeoutFuture;
 
-use crate::{config::CONFIG, prelude::*, tick::{PauseTick, PauseTickViewMut}};
+use crate::{
+    config::CONFIG,
+    prelude::*,
+    tick::{PauseTick, PauseTickViewMut},
+};
 
 use crate::dom::atoms::buttons::*;
 
@@ -13,7 +17,7 @@ pub struct Help {
 
 impl Help {
     pub fn new(world: Arc<World>, game_phase: Mutable<Option<GameUiPhase>>) -> Arc<Self> {
-        Arc::new(Self {world, game_phase})
+        Arc::new(Self { world, game_phase })
     }
 }
 

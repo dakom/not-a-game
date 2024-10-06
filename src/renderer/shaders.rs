@@ -1,12 +1,12 @@
-use awsm_web::webgl::{WebGl2Renderer, VertexArray, NameOrLoc, AttributeOptions, DataType};
+use awsm_web::webgl::{AttributeOptions, DataType, NameOrLoc, VertexArray, WebGl2Renderer};
 
+use super::{buffers::Buffers, Renderer};
 use crate::prelude::*;
-use super::{Renderer, buffers::Buffers};
 
-const QUAD_UNIT_VERTEX:&'static str = include_str!("./shaders/vertex/quad-unit.vert");
-const QUAD_TEXTURE_FRAGMENT:&'static str = include_str!("./shaders/fragment/quad-texture.frag");
-const COLLISION_VERTEX:&'static str = include_str!("./shaders/vertex/collision.vert");
-const COLLISION_FRAGMENT:&'static str = include_str!("./shaders/fragment/collision.frag");
+const QUAD_UNIT_VERTEX: &'static str = include_str!("./shaders/vertex/quad-unit.vert");
+const QUAD_TEXTURE_FRAGMENT: &'static str = include_str!("./shaders/fragment/quad-texture.frag");
+const COLLISION_VERTEX: &'static str = include_str!("./shaders/vertex/collision.vert");
+const COLLISION_FRAGMENT: &'static str = include_str!("./shaders/fragment/collision.frag");
 
 #[derive(Clone, Debug)]
 pub struct Shaders {
@@ -18,7 +18,7 @@ pub struct Shaders {
 #[derive(Clone, Debug)]
 pub struct VertexShaders {
     pub quad_unit: Id,
-    pub collision: Id
+    pub collision: Id,
 }
 
 #[derive(Clone, Debug)]
@@ -30,7 +30,7 @@ pub struct FragmentShaders {
 #[derive(Clone, Debug)]
 pub struct ShaderPrograms {
     pub sprite: ShaderProgram,
-    pub collision: ShaderProgram
+    pub collision: ShaderProgram,
 }
 
 #[derive(Clone, Debug)]
@@ -55,8 +55,10 @@ impl Shaders {
         };
 
         let fragment = FragmentShaders {
-            quad_texture: gl.compile_shader(QUAD_TEXTURE_FRAGMENT, awsm_web::webgl::ShaderType::Fragment)?,
-            collision: gl.compile_shader(COLLISION_FRAGMENT, awsm_web::webgl::ShaderType::Fragment)?,
+            quad_texture: gl
+                .compile_shader(QUAD_TEXTURE_FRAGMENT, awsm_web::webgl::ShaderType::Fragment)?,
+            collision: gl
+                .compile_shader(COLLISION_FRAGMENT, awsm_web::webgl::ShaderType::Fragment)?,
         };
 
         let sprite_shader = {
@@ -78,15 +80,11 @@ impl Shaders {
                         attribute: NameOrLoc::Name("a_uv_vertex"),
                         buffer_id: buffers.quad_uvs, // this will be overwritten
                         opts: AttributeOptions::new(2, DataType::Float),
-                    }
+                    },
                 ],
             )?;
 
-
-            ShaderProgram {
-                program_id,
-                vao_id
-            }
+            ShaderProgram { program_id, vao_id }
         };
 
         let collision_shader = {
@@ -108,20 +106,16 @@ impl Shaders {
                         attribute: NameOrLoc::Name("a_uv_vertex"),
                         buffer_id: buffers.collision_uvs, // this will also be overwritten
                         opts: AttributeOptions::new(2, DataType::Float),
-                    }
+                    },
                 ],
             )?;
 
-
-            ShaderProgram {
-                program_id,
-                vao_id
-            }
+            ShaderProgram { program_id, vao_id }
         };
 
         let programs = ShaderPrograms {
             sprite: sprite_shader,
-            collision: collision_shader
+            collision: collision_shader,
         };
 
         Ok(Self {

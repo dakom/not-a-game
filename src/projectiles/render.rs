@@ -1,6 +1,9 @@
-use awsm_web::webgl::{GlToggle, BlendFactor, BufferData, BufferTarget, BufferUsage, BeginMode};
+use awsm_web::webgl::{BeginMode, BlendFactor, BufferData, BufferTarget, BufferUsage, GlToggle};
 
-use crate::{prelude::*, renderer::{Renderer, buffers::Buffers}};
+use crate::{
+    prelude::*,
+    renderer::{buffers::Buffers, Renderer},
+};
 
 use super::data::Projectile;
 
@@ -25,7 +28,7 @@ impl Projectile {
             ),
         )?;
 
-        let mut model_matrix_data: [f32;16] = [0.0;16];
+        let mut model_matrix_data: [f32; 16] = [0.0; 16];
 
         world_transform.write_to_vf32(&mut model_matrix_data);
         renderer.upload_uniform_fvals_2_name("u_uv_offset", (0.0, 0.0));

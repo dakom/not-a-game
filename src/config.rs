@@ -5,7 +5,6 @@ use serde::Deserialize;
 
 use crate::{dom::ui::game::GameUiPhase, enemy::data::EnemyKind};
 
-
 cfg_if::cfg_if! {
     if #[cfg(feature = "dev")] {
         // for github pages etc. where website isn't at root
@@ -20,11 +19,11 @@ cfg_if::cfg_if! {
                 initial_drop_countdown: 100.0,
                 live_drop_countdown_range: 100.0..200.0,
                 //live_drop_countdown_range: 1000.0..5000.0,
-                selected_enemy: Some(EnemyKind::Two), 
+                selected_enemy: Some(EnemyKind::Two),
                 can_debug_colliders: true,
                 cell_duration: 50.0,
                 initial_game_phase: Some(GameUiPhase::Welcome)
-                //initial_game_phase: None 
+                //initial_game_phase: None
             }
         });
     } else {
@@ -39,7 +38,7 @@ cfg_if::cfg_if! {
                 live_drop_countdown_range: 100.0..200.0,
                 max_bg_panes: Some(1),
                 max_bg_layers: None,
-                selected_enemy: Some(EnemyKind::Two), 
+                selected_enemy: Some(EnemyKind::Two),
                 can_debug_colliders: false,
                 cell_duration: 50.0,
                 initial_game_phase: Some(GameUiPhase::Welcome)
@@ -61,7 +60,6 @@ pub struct Config {
     pub can_debug_colliders: bool,
     pub cell_duration: f64,
     pub initial_game_phase: Option<GameUiPhase>,
-
 }
 
 impl Config {
@@ -79,7 +77,13 @@ impl Config {
 
 fn check_env(name: &str) -> Option<String> {
     match env_var(name) {
-        Ok(value) => if value.is_empty() { None } else { Some(value) },
-        Err(_) => None
+        Ok(value) => {
+            if value.is_empty() {
+                None
+            } else {
+                Some(value)
+            }
+        }
+        Err(_) => None,
     }
 }

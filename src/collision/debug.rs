@@ -1,8 +1,17 @@
 use anyhow::Context;
-use awsm_web::{webgl::{TextureTarget, SimpleTextureOptions, PixelFormat, TextureWrapMode, WebGlTextureSource, GlToggle, BlendFactor, BufferData, BufferTarget, BufferUsage, BeginMode}, canvas::get_2d_context};
+use awsm_web::{
+    canvas::get_2d_context,
+    webgl::{
+        BeginMode, BlendFactor, BufferData, BufferTarget, BufferUsage, GlToggle, PixelFormat,
+        SimpleTextureOptions, TextureTarget, TextureWrapMode, WebGlTextureSource,
+    },
+};
 use web_sys::HtmlCanvasElement;
 
-use crate::{prelude::*, renderer::{Renderer, buffers::Buffers}};
+use crate::{
+    prelude::*,
+    renderer::{buffers::Buffers, Renderer},
+};
 
 use super::data::Collider;
 
@@ -17,10 +26,19 @@ impl CollisionDebugger {
         let box_texture_id = renderer.create_texture()?;
 
         let create_canvas_element = || -> Result<HtmlCanvasElement> {
-            web_sys::window().context("could not create window")
+            web_sys::window()
+                .context("could not create window")
                 .and_then(|window| window.document().context("could not create document"))
-                .and_then(|document| document.create_element("canvas").map_err(|_| anyhow!("could not create canvas")))
-                .and_then(|canvas| canvas.dyn_into::<HtmlCanvasElement>().map_err(|_| anyhow!("could not convert canvas to HtmlCanvasElement")))
+                .and_then(|document| {
+                    document
+                        .create_element("canvas")
+                        .map_err(|_| anyhow!("could not create canvas"))
+                })
+                .and_then(|canvas| {
+                    canvas
+                        .dyn_into::<HtmlCanvasElement>()
+                        .map_err(|_| anyhow!("could not convert canvas to HtmlCanvasElement"))
+                })
         };
 
         let canvas = create_canvas_element()?;
@@ -42,17 +60,17 @@ impl CollisionDebugger {
                 wrap_t: Some(TextureWrapMode::ClampToEdge),
                 ..SimpleTextureOptions::default()
             },
-            &WebGlTextureSource::CanvasElement(&canvas)
+            &WebGlTextureSource::CanvasElement(&canvas),
         )?;
 
-        // to debug the canvas style itself 
+        // to debug the canvas style itself
         /*
         canvas.style().set_property("position", "absolute");
         canvas.style().set_property("z-index", "100");
         let body = web_sys::window().context("could not create window")
                 .and_then(|window| window.document().context("could not create document"))
                 .and_then(|document| document.body().context("could not create body"))?;
-        
+
         body.append_child(&canvas);
         */
 
@@ -69,9 +87,13 @@ impl CollisionDebugger {
     }
 }
 
-
 impl Collider {
-    pub fn render_debug(&self, renderer: &mut Renderer, debugger: &CollisionDebugger, geometry_colliding: bool) -> Result<()> {
+    pub fn render_debug(
+        &self,
+        renderer: &mut Renderer,
+        debugger: &CollisionDebugger,
+        geometry_colliding: bool,
+    ) -> Result<()> {
         renderer.toggle(GlToggle::Blend, true);
         renderer.set_blend_func(BlendFactor::SrcAlpha, BlendFactor::OneMinusSrcAlpha);
         renderer.set_depth_func(awsm_web::webgl::CmpFunction::Less);
@@ -96,7 +118,7 @@ impl Collider {
                 &Buffers::QUAD_GEOM_UNIT,
                 BufferTarget::ArrayBuffer,
                 BufferUsage::StaticDraw,
-            )
+            ),
         )?;
 
         renderer.activate_texture_sampler_name(debugger.box_texture_id, "u_sampler")?;

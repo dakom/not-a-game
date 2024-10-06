@@ -3,7 +3,7 @@ pub struct Bounds {
     pub x: f64,
     pub y: f64,
     pub width: f64,
-    pub height: f64
+    pub height: f64,
 }
 
 impl Bounds {
@@ -15,7 +15,7 @@ impl Bounds {
     pub fn center_x(&self) -> f64 {
         self.x + (self.width / 2.0)
     }
-    // assumes y is up 
+    // assumes y is up
     pub fn top(&self) -> f64 {
         self.y + self.height
     }

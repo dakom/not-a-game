@@ -1,9 +1,24 @@
-use awsm_web::webgl::{WebGl2Renderer, VertexArray, NameOrLoc, AttributeOptions, DataType, TextureTarget, SimpleTextureOptions, PixelFormat, WebGlTextureSource, TextureWrapMode};
+use awsm_web::webgl::{
+    AttributeOptions, DataType, NameOrLoc, PixelFormat, SimpleTextureOptions, TextureTarget,
+    TextureWrapMode, VertexArray, WebGl2Renderer, WebGlTextureSource,
+};
 use web_sys::HtmlImageElement;
 
-use crate::{prelude::*, renderer::{Renderer, shaders::ShaderProgram}, media::{Media, SpriteSheetMediaInfo}, spritesheet::{SpriteSheet, self}, config::CONFIG};
+use crate::{
+    config::CONFIG,
+    media::{Media, SpriteSheetMediaInfo},
+    prelude::*,
+    renderer::{shaders::ShaderProgram, Renderer},
+    spritesheet::{self, SpriteSheet},
+};
 
-use super::{controller::data::{EnemyControllerOne, EnemyControllerTwo, EnemyControllerThree, EnemyControllerFour, EnemyController}, physics::data::EnemyDirection};
+use super::{
+    controller::data::{
+        EnemyController, EnemyControllerFour, EnemyControllerOne, EnemyControllerThree,
+        EnemyControllerTwo,
+    },
+    physics::data::EnemyDirection,
+};
 
 #[derive(Component)]
 pub enum Enemy {
@@ -26,7 +41,7 @@ pub enum Enemy {
         phase: EnemyFourPhase,
         spritesheet: EnemySpriteSheetsFour,
         controller: EnemyControllerFour,
-    }
+    },
 }
 
 impl Enemy {
@@ -50,39 +65,37 @@ impl Enemy {
 
     pub fn spritesheet(&self) -> &SpriteSheet {
         match self {
-            Self::One { spritesheet, phase, .. } => {
-                match phase {
-                    EnemyOnePhase::Idle => &spritesheet.idle,
-                    EnemyOnePhase::Walk => &spritesheet.walk,
-                    EnemyOnePhase::Blast => &spritesheet.blast,
-                    EnemyOnePhase::Hurt => &spritesheet.hurt,
-                }
-            }
-            Self::Two { spritesheet, phase, .. } => {
-                match phase {
-                    EnemyTwoPhase::Idle => &spritesheet.idle,
-                    EnemyTwoPhase::Walk => &spritesheet.walk,
-                    EnemyTwoPhase::Hurt => &spritesheet.hurt,
-                    EnemyTwoPhase::Shooting => {
-                        &spritesheet.shooting
-                    },
-                }
-            }
-            Self::Three { spritesheet, phase, .. } => {
-                match phase {
-                    EnemyThreePhase::Idle => &spritesheet.idle,
-                    EnemyThreePhase::Walk => &spritesheet.walk,
-                    EnemyThreePhase::Hurt => &spritesheet.hurt,
-                    EnemyThreePhase::Shoot => &spritesheet.shoot,
-                }
-            }
-            Self::Four { spritesheet, phase, .. } => {
-                match phase {
-                    EnemyFourPhase::Idle => &spritesheet.idle,
-                    EnemyFourPhase::Hurt => &spritesheet.hurt,
-                    EnemyFourPhase::Shoot => &spritesheet.shoot,
-                }
-            }
+            Self::One {
+                spritesheet, phase, ..
+            } => match phase {
+                EnemyOnePhase::Idle => &spritesheet.idle,
+                EnemyOnePhase::Walk => &spritesheet.walk,
+                EnemyOnePhase::Blast => &spritesheet.blast,
+                EnemyOnePhase::Hurt => &spritesheet.hurt,
+            },
+            Self::Two {
+                spritesheet, phase, ..
+            } => match phase {
+                EnemyTwoPhase::Idle => &spritesheet.idle,
+                EnemyTwoPhase::Walk => &spritesheet.walk,
+                EnemyTwoPhase::Hurt => &spritesheet.hurt,
+                EnemyTwoPhase::Shooting => &spritesheet.shooting,
+            },
+            Self::Three {
+                spritesheet, phase, ..
+            } => match phase {
+                EnemyThreePhase::Idle => &spritesheet.idle,
+                EnemyThreePhase::Walk => &spritesheet.walk,
+                EnemyThreePhase::Hurt => &spritesheet.hurt,
+                EnemyThreePhase::Shoot => &spritesheet.shoot,
+            },
+            Self::Four {
+                spritesheet, phase, ..
+            } => match phase {
+                EnemyFourPhase::Idle => &spritesheet.idle,
+                EnemyFourPhase::Hurt => &spritesheet.hurt,
+                EnemyFourPhase::Shoot => &spritesheet.shoot,
+            },
         }
     }
 
@@ -91,9 +104,9 @@ impl Enemy {
     pub fn controller(&self) -> &dyn EnemyController {
         match self {
             Enemy::One { controller, .. } => controller,
-            Enemy::Two { controller, .. } => controller, 
+            Enemy::Two { controller, .. } => controller,
             Enemy::Three { controller, .. } => controller,
-            Enemy::Four { controller, .. } => controller 
+            Enemy::Four { controller, .. } => controller,
         }
     }
     // returns the common controller trait for all enemies
@@ -101,9 +114,9 @@ impl Enemy {
     pub fn controller_mut(&mut self) -> &mut dyn EnemyController {
         match self {
             Enemy::One { controller, .. } => controller,
-            Enemy::Two { controller, .. } => controller, 
+            Enemy::Two { controller, .. } => controller,
             Enemy::Three { controller, .. } => controller,
-            Enemy::Four { controller, .. } => controller 
+            Enemy::Four { controller, .. } => controller,
         }
     }
 }
@@ -117,15 +130,15 @@ pub enum EnemyKind {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum EnemyOnePhase{
+pub enum EnemyOnePhase {
     Idle,
     Walk,
     Blast,
-    Hurt
+    Hurt,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum EnemyTwoPhase{
+pub enum EnemyTwoPhase {
     Idle,
     Walk,
     Hurt,
@@ -133,11 +146,11 @@ pub enum EnemyTwoPhase{
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum EnemyThreePhase{
+pub enum EnemyThreePhase {
     Idle,
     Walk,
     Hurt,
-    Shoot
+    Shoot,
 }
 
 impl EnemyThreePhase {
@@ -152,10 +165,10 @@ impl EnemyThreePhase {
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum EnemyFourPhase{
+pub enum EnemyFourPhase {
     Idle,
     Hurt,
-    Shoot
+    Shoot,
 }
 
 impl EnemyFourPhase {
@@ -167,7 +180,6 @@ impl EnemyFourPhase {
         }
     }
 }
-
 
 #[derive(Debug, Default)]
 pub struct EnemySpriteSheets {
@@ -181,56 +193,48 @@ impl EnemySpriteSheets {
     pub fn new(renderer: &mut Renderer, media: &Media) -> Result<Self> {
         let one = match &media.terrorists.one {
             None => None,
-            Some(t) => {
-                Some(EnemySpriteSheetsOne {
-                    blast: SpriteSheet::new(renderer, &t.blast_img, &t.blast_info)?,
-                    hurt: SpriteSheet::new(renderer, &t.hurt_img, &t.hurt_info)?,
-                    idle: SpriteSheet::new(renderer, &t.idle_img, &t.idle_info)?,
-                    walk: SpriteSheet::new(renderer, &t.walk_img, &t.walk_info)?,
-                })
-            }
+            Some(t) => Some(EnemySpriteSheetsOne {
+                blast: SpriteSheet::new(renderer, &t.blast_img, &t.blast_info)?,
+                hurt: SpriteSheet::new(renderer, &t.hurt_img, &t.hurt_info)?,
+                idle: SpriteSheet::new(renderer, &t.idle_img, &t.idle_info)?,
+                walk: SpriteSheet::new(renderer, &t.walk_img, &t.walk_info)?,
+            }),
         };
 
         let two = match &media.terrorists.two {
             None => None,
-            Some(t) => {
-                Some(EnemySpriteSheetsTwo{
-                    hurt: SpriteSheet::new(renderer, &t.hurt_img, &t.hurt_info)?,
-                    idle: SpriteSheet::new(renderer, &t.idle_img, &t.idle_info)?,
-                    shooting: SpriteSheet::new(renderer, &t.shooting_img, &t.shooting_info)?,
-                    walk: SpriteSheet::new(renderer, &t.walk_img, &t.walk_info)?,
-                })
-            }
+            Some(t) => Some(EnemySpriteSheetsTwo {
+                hurt: SpriteSheet::new(renderer, &t.hurt_img, &t.hurt_info)?,
+                idle: SpriteSheet::new(renderer, &t.idle_img, &t.idle_info)?,
+                shooting: SpriteSheet::new(renderer, &t.shooting_img, &t.shooting_info)?,
+                walk: SpriteSheet::new(renderer, &t.walk_img, &t.walk_info)?,
+            }),
         };
 
         let three = match &media.terrorists.three {
             None => None,
-            Some(t) => {
-                Some(EnemySpriteSheetsThree {
-                    hurt: SpriteSheet::new(renderer, &t.hurt_img, &t.hurt_info)?,
-                    idle: SpriteSheet::new(renderer, &t.idle_img, &t.idle_info)?,
-                    shoot: SpriteSheet::new(renderer, &t.shoot_img, &t.shoot_info)?,
-                    walk: SpriteSheet::new(renderer, &t.walk_img, &t.walk_info)?,
-                })
-            }
+            Some(t) => Some(EnemySpriteSheetsThree {
+                hurt: SpriteSheet::new(renderer, &t.hurt_img, &t.hurt_info)?,
+                idle: SpriteSheet::new(renderer, &t.idle_img, &t.idle_info)?,
+                shoot: SpriteSheet::new(renderer, &t.shoot_img, &t.shoot_info)?,
+                walk: SpriteSheet::new(renderer, &t.walk_img, &t.walk_info)?,
+            }),
         };
 
         let four = match &media.terrorists.four {
             None => None,
-            Some(t) => {
-                Some(EnemySpriteSheetsFour {
-                    hurt: SpriteSheet::new(renderer, &t.hurt_img, &t.hurt_info)?,
-                    idle: SpriteSheet::new(renderer, &t.idle_img, &t.idle_info)?,
-                    shoot: SpriteSheet::new(renderer, &t.shoot_img, &t.shoot_info)?,
-                })
-            }
+            Some(t) => Some(EnemySpriteSheetsFour {
+                hurt: SpriteSheet::new(renderer, &t.hurt_img, &t.hurt_info)?,
+                idle: SpriteSheet::new(renderer, &t.idle_img, &t.idle_info)?,
+                shoot: SpriteSheet::new(renderer, &t.shoot_img, &t.shoot_info)?,
+            }),
         };
 
         Ok(Self {
             one,
             two,
             three,
-            four
+            four,
         })
     }
 }

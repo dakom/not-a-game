@@ -1,8 +1,20 @@
-use crate::{dom::{atoms::{buttons::ButtonSize, help::HelpButton}, ui::game::GameUiPhase, DomView}, enemy::{controller::data::EnemyController, data::{Enemy, EnemyKind}, events::EnemySelectEvent}, prelude::*};
+use crate::{
+    dom::{
+        atoms::{buttons::ButtonSize, help::HelpButton},
+        ui::game::GameUiPhase,
+        DomView,
+    },
+    enemy::{
+        controller::data::EnemyController,
+        data::{Enemy, EnemyKind},
+        events::EnemySelectEvent,
+    },
+    prelude::*,
+};
 
 use super::GameUi;
 
-static CONTAINER :LazyLock<String> = LazyLock::new(|| {
+static CONTAINER: LazyLock<String> = LazyLock::new(|| {
     class! {
         .style("position", "absolute")
         .style("width", "100vw")
@@ -12,7 +24,7 @@ static CONTAINER :LazyLock<String> = LazyLock::new(|| {
     }
 });
 
-static BG:LazyLock<String> = LazyLock::new(|| {
+static BG: LazyLock<String> = LazyLock::new(|| {
     class! {
         .style("position", "absolute")
         .style("width", "100%")
@@ -22,7 +34,7 @@ static BG:LazyLock<String> = LazyLock::new(|| {
     }
 });
 
-static CONTENT:LazyLock<String> = LazyLock::new(|| {
+static CONTENT: LazyLock<String> = LazyLock::new(|| {
     class! {
         .style("display", "flex")
         .style("justify-content", "center")
@@ -63,7 +75,7 @@ impl GameUi {
     fn render_enemy_box(self: Arc<Self>, kind: EnemyKind) -> Dom {
         let state = self;
 
-        static CONTAINER:LazyLock<String> = LazyLock::new(|| {
+        static CONTAINER: LazyLock<String> = LazyLock::new(|| {
             class! {
                 .style("display", "flex")
                 .style("cursor", "pointer")
@@ -74,7 +86,7 @@ impl GameUi {
             }
         });
 
-        static KILLED:LazyLock<String> = LazyLock::new(|| {
+        static KILLED: LazyLock<String> = LazyLock::new(|| {
             class! {
                 .style("opacity", "0.2")
                 .style("text-decoration", "line-through")
@@ -83,8 +95,8 @@ impl GameUi {
 
         html!("div", {
             .class([&*CONTAINER, &*TEXT_SIZE_MD, &*TEXT_WEIGHT_BOLD, Color::Darkest.class_bg()])
-            .class_signal([Color::Accent.class()], state.selected_kind.signal().map(move |selected| selected == Some(kind))) 
-            .class_signal([Color::Red.class()], state.selected_kind.signal().map(move |selected| selected != Some(kind))) 
+            .class_signal([Color::Accent.class()], state.selected_kind.signal().map(move |selected| selected == Some(kind)))
+            .class_signal([Color::Red.class()], state.selected_kind.signal().map(move |selected| selected != Some(kind)))
             .class_signal([&*KILLED], state.destroyed_kinds.signal_cloned().map(move |destroyed| destroyed.contains(&kind)))
             .text(&format!("Enemy {}", match kind {
                 EnemyKind::One => "1",

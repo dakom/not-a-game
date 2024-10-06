@@ -6,7 +6,7 @@
 use std::sync::atomic::{AtomicBool, AtomicI32};
 use web_sys::KeyboardEvent;
 
-use crate::{prelude::*, enemy::data::EnemyKind};
+use crate::{enemy::data::EnemyKind, prelude::*};
 
 #[derive(Debug, Clone)]
 pub enum Input {
@@ -21,12 +21,11 @@ pub enum Input {
     ResetButton,
 }
 
-
 #[derive(Debug, Clone, Copy)]
 pub enum WheelDeltaMode {
     Pixel,
     Line,
-    Page
+    Page,
 }
 
 impl std::convert::TryFrom<u32> for WheelDeltaMode {
@@ -37,7 +36,7 @@ impl std::convert::TryFrom<u32> for WheelDeltaMode {
             0 => Ok(Self::Pixel),
             1 => Ok(Self::Line),
             2 => Ok(Self::Page),
-            _ => Err("unknown wheel delta mode!")
+            _ => Err("unknown wheel delta mode!"),
         }
     }
 }
@@ -61,7 +60,7 @@ pub enum Key {
 }
 
 impl From<&KeyboardEvent> for Key {
-    fn from(evt:&KeyboardEvent) -> Self {
+    fn from(evt: &KeyboardEvent) -> Self {
         let key_str = evt.key().to_lowercase();
         match key_str.as_str() {
             "space" | "spacebar" | " " => Self::Space,
@@ -70,12 +69,12 @@ impl From<&KeyboardEvent> for Key {
             "w" | "k" | "arrowup" => Self::Up,
             "s" | "j" | "arrowdown" => Self::Down,
             "p" => Self::Pause,
-            "1" => Self::Number1, 
-            "2" => Self::Number2, 
-            "3" => Self::Number3, 
-            "4" => Self::Number4, 
-            "c" => Self::ToggleDebugColliders, 
-            _ => Self::Unknown(key_str)
+            "1" => Self::Number1,
+            "2" => Self::Number2,
+            "3" => Self::Number3,
+            "4" => Self::Number4,
+            "c" => Self::ToggleDebugColliders,
+            _ => Self::Unknown(key_str),
         }
     }
 }
@@ -99,8 +98,7 @@ impl InputState {
     }
 }
 
-
-//Delta is the change since the last move 
+//Delta is the change since the last move
 //Diff is the change since pointer down
 type X = i32;
 type Y = i32;

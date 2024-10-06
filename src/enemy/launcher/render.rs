@@ -1,10 +1,20 @@
-use awsm_web::webgl::{BeginMode, GlToggle, BlendFactor, BufferData, BufferTarget, BufferUsage};
+use awsm_web::webgl::{BeginMode, BlendFactor, BufferData, BufferTarget, BufferUsage, GlToggle};
 
-use crate::{prelude::*, renderer::{Renderer, uvs::Uvs}, enemy::data::{EnemyKind, EnemyOnePhase, EnemyTwoPhase}, animation::data::Animation};
 use super::data::EnemyLauncher;
+use crate::{
+    animation::data::Animation,
+    enemy::data::{EnemyKind, EnemyOnePhase, EnemyTwoPhase},
+    prelude::*,
+    renderer::{uvs::Uvs, Renderer},
+};
 
 impl EnemyLauncher {
-    pub fn render(&self, renderer: &mut Renderer, world_transform: &Mat4, animation: &Animation) -> Result<()> {
+    pub fn render(
+        &self,
+        renderer: &mut Renderer,
+        world_transform: &Mat4,
+        animation: &Animation,
+    ) -> Result<()> {
         renderer.toggle(GlToggle::Blend, true);
         renderer.set_blend_func(BlendFactor::SrcAlpha, BlendFactor::OneMinusSrcAlpha);
         renderer.set_depth_func(awsm_web::webgl::CmpFunction::Less);
@@ -17,7 +27,11 @@ impl EnemyLauncher {
         renderer.activate_texture_sampler_name(self.spritesheet.texture_id, "u_sampler")?;
 
         let mut bounds = &self.spritesheet.cells[animation.index];
-        let mut uvs = Uvs::new(self.spritesheet.atlas_width, self.spritesheet.atlas_height, &bounds);
+        let mut uvs = Uvs::new(
+            self.spritesheet.atlas_width,
+            self.spritesheet.atlas_height,
+            &bounds,
+        );
 
         renderer.upload_buffer(
             renderer.buffers.quad_uvs,
@@ -28,9 +42,12 @@ impl EnemyLauncher {
             ),
         )?;
 
-        renderer.upload_uniform_fvals_2_name("u_quad_scaler", (bounds.width as f32, bounds.height as f32));
+        renderer.upload_uniform_fvals_2_name(
+            "u_quad_scaler",
+            (bounds.width as f32, bounds.height as f32),
+        );
 
-        let mut model_matrix_data: [f32;16] = [0.0;16];
+        let mut model_matrix_data: [f32; 16] = [0.0; 16];
 
         world_transform.write_to_vf32(&mut model_matrix_data);
         renderer.upload_uniform_mat_4_name("u_model", &model_matrix_data)?;

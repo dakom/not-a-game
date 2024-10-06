@@ -1,4 +1,4 @@
-use crate::{prelude::*, spritesheet::SpriteSheet, renderer::Renderer};
+use crate::{prelude::*, renderer::Renderer, spritesheet::SpriteSheet};
 
 #[derive(Component)]
 pub struct EnemyLauncher {
@@ -12,7 +12,7 @@ impl EnemyLauncher {
         Self {
             spritesheet,
             launching: false,
-            side
+            side,
         }
     }
 }

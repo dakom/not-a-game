@@ -1,10 +1,21 @@
-use awsm_web::webgl::{BeginMode, GlToggle, BlendFactor, BufferData, BufferTarget, BufferUsage};
+use awsm_web::webgl::{BeginMode, BlendFactor, BufferData, BufferTarget, BufferUsage, GlToggle};
 
-use crate::{prelude::*, renderer::{Renderer, uvs::Uvs}, enemy::data::{EnemyKind, EnemyOnePhase, EnemyTwoPhase}, animation::data::Animation};
 use super::{data::Enemy, effects::data::EnemyEffect, physics::data::EnemyDirection};
+use crate::{
+    animation::data::Animation,
+    enemy::data::{EnemyKind, EnemyOnePhase, EnemyTwoPhase},
+    prelude::*,
+    renderer::{uvs::Uvs, Renderer},
+};
 
 impl Enemy {
-    pub fn render(&self, renderer: &mut Renderer, world_transform: &Mat4, animation: &Animation, effect: &mut EnemyEffect) -> Result<()> {
+    pub fn render(
+        &self,
+        renderer: &mut Renderer,
+        world_transform: &Mat4,
+        animation: &Animation,
+        effect: &mut EnemyEffect,
+    ) -> Result<()> {
         renderer.toggle(GlToggle::Blend, true);
         renderer.set_blend_func(BlendFactor::SrcAlpha, BlendFactor::OneMinusSrcAlpha);
         renderer.set_depth_func(awsm_web::webgl::CmpFunction::Less);
@@ -30,29 +41,38 @@ impl Enemy {
             ),
         )?;
 
-        renderer.upload_uniform_fvals_2_name("u_quad_scaler", (bounds.width as f32, bounds.height as f32));
+        renderer.upload_uniform_fvals_2_name(
+            "u_quad_scaler",
+            (bounds.width as f32, bounds.height as f32),
+        );
 
-        let mut model_matrix_data: [f32;16] = [0.0;16];
+        let mut model_matrix_data: [f32; 16] = [0.0; 16];
 
         world_transform.write_to_vf32(&mut model_matrix_data);
         renderer.upload_uniform_mat_4_name("u_model", &model_matrix_data)?;
         renderer.upload_uniform_fvals_2_name("u_uv_offset", (0.0, 0.0));
-        
+
         match self.controller().hiding() {
             Some(hiding) => {
                 let value = effect.update_hiding();
 
                 // value is between 0.2 and 1.0
                 // make rgb values that give a feeling of different colors flashing - but without going all black
-                // the rgb range should stay between 0.0 and 1.0 
+                // the rgb range should stay between 0.0 and 1.0
                 // use sin() to make it feel smooth and varied:
 
-                let r = (0.5 + 0.5 * (value * 2.0 * std::f32::consts::PI).sin()).max(0.0).min(1.0);
-                let g = (0.5 + 0.5 * ((value * 2.0 * std::f32::consts::PI + 2.0).sin())).max(0.0).min(1.0);
-                let b = (0.5 + 0.5 * ((value * 2.0 * std::f32::consts::PI + 4.0).sin())).max(0.0).min(1.0);
+                let r = (0.5 + 0.5 * (value * 2.0 * std::f32::consts::PI).sin())
+                    .max(0.0)
+                    .min(1.0);
+                let g = (0.5 + 0.5 * ((value * 2.0 * std::f32::consts::PI + 2.0).sin()))
+                    .max(0.0)
+                    .min(1.0);
+                let b = (0.5 + 0.5 * ((value * 2.0 * std::f32::consts::PI + 4.0).sin()))
+                    .max(0.0)
+                    .min(1.0);
 
-                renderer.upload_uniform_fvals_4_name("u_tint", (r,g,b, 0.5));
-            },
+                renderer.upload_uniform_fvals_4_name("u_tint", (r, g, b, 0.5));
+            }
             None => {
                 renderer.upload_uniform_fvals_4_name("u_tint", (1.0, 1.0, 1.0, 1.0));
             }

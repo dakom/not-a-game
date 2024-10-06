@@ -1,6 +1,6 @@
+mod footer;
 mod game_over;
 mod help;
-mod footer;
 mod welcome;
 mod winner;
 
@@ -13,7 +13,14 @@ use wasm_bindgen_futures::spawn_local;
 use welcome::Welcome;
 use winner::Winner;
 
-use crate::{dispatch_select_event, enemy::{data::{Enemy, EnemyKind}, events::EnemySelectEvent}, prelude::*};
+use crate::{
+    dispatch_select_event,
+    enemy::{
+        data::{Enemy, EnemyKind},
+        events::EnemySelectEvent,
+    },
+    prelude::*,
+};
 
 #[derive(Clone)]
 pub struct GameUi {
@@ -32,7 +39,7 @@ pub enum GameUiPhase {
 }
 
 impl GameUi {
-    pub fn new(world:Arc<World>) -> Arc<Self> {
+    pub fn new(world: Arc<World>) -> Arc<Self> {
         let _self = Arc::new(Self {
             world,
             selected_kind: Mutable::new(None),
@@ -44,7 +51,7 @@ impl GameUi {
     }
 
     pub fn render(self: Arc<Self>) -> Dom {
-        static CONTAINER :LazyLock<String> = LazyLock::new(|| {
+        static CONTAINER: LazyLock<String> = LazyLock::new(|| {
             class! {
                 .style("position", "absolute")
                 .style("width", "100vw")
@@ -84,8 +91,10 @@ impl GameUi {
         // and ultimately set the local mutable
         // perhaps we could make it a _little_ more responsive by setting it here too
         // but better for sanity checking to just let it flow from the system
-        self.world.run(|mut events: ViewMut<EnemySelectEvent>, enemies: View<Enemy>| {
-            dispatch_select_event!(enemies, &mut events, kind);
-        });
+        self.world.run(
+            |mut events: ViewMut<EnemySelectEvent>, enemies: View<Enemy>| {
+                dispatch_select_event!(enemies, &mut events, kind);
+            },
+        );
     }
 }

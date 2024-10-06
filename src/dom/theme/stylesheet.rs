@@ -1,5 +1,5 @@
-use crate::prelude::*;
 use super::{responsive::WindowSizeListener, typography::FONT_FAMILY_INTER};
+use crate::prelude::*;
 use dominator::stylesheet;
 
 pub fn init() {

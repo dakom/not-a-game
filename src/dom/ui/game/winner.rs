@@ -1,13 +1,16 @@
 use gloo_timers::future::TimeoutFuture;
 
-use crate::{config::CONFIG, prelude::*, tick::{PauseTick, PauseTickViewMut}};
+use crate::{
+    config::CONFIG,
+    prelude::*,
+    tick::{PauseTick, PauseTickViewMut},
+};
 
 use crate::dom::atoms::buttons::*;
 
 use super::GameUiPhase;
 
-pub struct Winner {
-}
+pub struct Winner {}
 
 impl Winner {
     pub fn new() -> Arc<Self> {

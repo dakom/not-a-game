@@ -1,8 +1,7 @@
-use crate::{prelude::*, config::URI_ROOT};
-use std::fmt::{Debug, Display};
+use crate::{config::URI_ROOT, prelude::*};
 use futures_signals::signal::Signal;
+use std::fmt::{Debug, Display};
 use web_sys::Url;
-
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Route {
@@ -52,22 +51,19 @@ impl Route {
     pub fn from_url(url: &str) -> Self {
         let url = Url::new(url).unwrap_ext();
         let paths = url.pathname();
-        let mut paths = paths.split('/')
+        let mut paths = paths
+            .split('/')
             .into_iter()
-            .skip(if URI_ROOT.is_empty() {
-                1
-            } else {
-                2
-            })
+            .skip(if URI_ROOT.is_empty() { 1 } else { 2 })
             .collect::<Vec<_>>();
         let paths = paths.as_slice();
         //let params_map = url.search_params();
 
         //let mut params_string = url.search();
         //if params_string.len() > 1 {
-            //// if there's more then one char than it's a '?', so remove it
-             //params_string = params_string[1..params_string.len()].to_string();
-            ////let query = serde_qs::from_str(&params_string).unwrap_ext();
+        //// if there's more then one char than it's a '?', so remove it
+        //params_string = params_string[1..params_string.len()].to_string();
+        ////let query = serde_qs::from_str(&params_string).unwrap_ext();
         //}
 
         match paths {

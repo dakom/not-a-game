@@ -1,8 +1,10 @@
-use std::{collections::HashMap, sync::{LazyLock, Mutex}};
+use std::{
+    collections::HashMap,
+    sync::{LazyLock, Mutex},
+};
 
-pub static LOG_IDS:LazyLock<Mutex<HashMap<String, usize>>> = LazyLock::new(|| {
-    Mutex::new(HashMap::new())
-});
+pub static LOG_IDS: LazyLock<Mutex<HashMap<String, usize>>> =
+    LazyLock::new(|| Mutex::new(HashMap::new()));
 
 #[macro_export]
 macro_rules! log_once {

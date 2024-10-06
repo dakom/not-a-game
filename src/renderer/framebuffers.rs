@@ -254,10 +254,7 @@ impl FrameBuffer {
             }
         };
 
-        self.depth = Some(FrameBufferId {
-            kind,
-            id: depth_id,
-        });
+        self.depth = Some(FrameBufferId { kind, id: depth_id });
 
         Ok(self)
     }
@@ -316,10 +313,7 @@ impl FrameBuffer {
             }
         };
 
-        self.depth = Some(FrameBufferId {
-            kind,
-            id: depth_id,
-        });
+        self.depth = Some(FrameBufferId { kind, id: depth_id });
 
         Ok(self)
     }
@@ -379,10 +373,7 @@ impl FrameBuffer {
             }
         };
 
-        self.color = Some(FrameBufferId {
-            kind,
-            id: color_id,
-        });
+        self.color = Some(FrameBufferId { kind, id: color_id });
 
         Ok(self)
     }

@@ -1,45 +1,36 @@
 use crate::prelude::*;
 
 #[derive(Debug)]
-pub struct AttackOne {
-}
+pub struct AttackOne {}
 
 impl AttackOne {
     pub fn new() -> Self {
-        Self {
-        }
+        Self {}
     }
 }
 
-
 #[derive(Debug)]
-pub struct AttackTwo{
-}
+pub struct AttackTwo {}
 
 impl AttackTwo {
     pub fn new() -> Self {
-        Self {
-        }
+        Self {}
     }
 }
 
 #[derive(Debug)]
-pub struct AttackThree{
-}
+pub struct AttackThree {}
 
 impl AttackThree {
     pub fn new() -> Self {
-        Self {
-        }
+        Self {}
     }
 }
 
 #[derive(Debug)]
-pub struct AttackFour{
-}
+pub struct AttackFour {}
 impl AttackFour {
     pub fn new() -> Self {
-        Self {
-        }
+        Self {}
     }
 }

@@ -1,6 +1,13 @@
-use awsm_web::webgl::{WebGl2Renderer, VertexArray, NameOrLoc, AttributeOptions, DataType, TextureTarget, SimpleTextureOptions, PixelFormat, WebGlTextureSource, TextureWrapMode};
+use awsm_web::webgl::{
+    AttributeOptions, DataType, NameOrLoc, PixelFormat, SimpleTextureOptions, TextureTarget,
+    TextureWrapMode, VertexArray, WebGl2Renderer, WebGlTextureSource,
+};
 
-use crate::{prelude::*, renderer::{Renderer, shaders::ShaderProgram}, media::Media};
+use crate::{
+    media::Media,
+    prelude::*,
+    renderer::{shaders::ShaderProgram, Renderer},
+};
 
 pub type BackgroundViewMut<'a> = UniqueViewMut<'a, Background>;
 pub type BackgroundView<'a> = UniqueView<'a, Background>;
@@ -11,7 +18,7 @@ pub struct Background {
     pub texture_ids: Vec<Vec<Id>>,
     pub width: f32,
     pub height: f32,
-    pub cloud_offset: f64
+    pub cloud_offset: f64,
 }
 
 impl Background {
@@ -40,9 +47,9 @@ impl Background {
         Ok(Self {
             shader: renderer.shaders.programs.sprite.clone(),
             texture_ids,
-            width: 0.0, 
-            height: 0.0, 
-            cloud_offset: 0.0
+            width: 0.0,
+            height: 0.0,
+            cloud_offset: 0.0,
         })
     }
 }

@@ -288,7 +288,6 @@ impl Color {
             }
         });
 
-
         match self {
             Self::Darkest => &*DARKEST,
             Self::Accent => &*ACCENT,

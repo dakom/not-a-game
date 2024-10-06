@@ -1,4 +1,4 @@
 use crate::prelude::*;
 
 #[derive(Component)]
-pub struct MarkForDeletion{}
+pub struct MarkForDeletion {}

@@ -1,9 +1,8 @@
 use crate::prelude::*;
-use web_sys::HtmlCanvasElement;
 use futures::channel::oneshot::Sender;
+use web_sys::HtmlCanvasElement;
 
-pub struct Canvas {
-}
+pub struct Canvas {}
 impl Canvas {
     pub fn render(tx: Sender<HtmlCanvasElement>) -> Dom {
         html!("canvas" => HtmlCanvasElement, {

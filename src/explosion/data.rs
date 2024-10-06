@@ -1,8 +1,10 @@
 use std::collections::HashSet;
 
-use awsm_web::webgl::{TextureTarget, SimpleTextureOptions, PixelFormat, TextureWrapMode, WebGlTextureSource};
+use awsm_web::webgl::{
+    PixelFormat, SimpleTextureOptions, TextureTarget, TextureWrapMode, WebGlTextureSource,
+};
 
-use crate::{prelude::*, renderer::Renderer, media::Media, spritesheet::SpriteSheet};
+use crate::{media::Media, prelude::*, renderer::Renderer, spritesheet::SpriteSheet};
 
 pub type ExplosionSpawnerViewMut<'a> = UniqueViewMut<'a, ExplosionSpawner>;
 pub type ExplosionSpawnerView<'a> = UniqueView<'a, ExplosionSpawner>;
@@ -16,7 +18,11 @@ pub struct ExplosionSpawner {
 
 impl ExplosionSpawner {
     pub fn new(renderer: &mut Renderer, media: &Media) -> Result<Self> {
-        let spritesheet = SpriteSheet::new(renderer, &media.objects.explosion_img, &media.objects.explosion_info)?;
+        let spritesheet = SpriteSheet::new(
+            renderer,
+            &media.objects.explosion_img,
+            &media.objects.explosion_info,
+        )?;
 
         Ok(Self {
             to_spawn: HashSet::new(),
@@ -28,5 +34,5 @@ impl ExplosionSpawner {
 
 #[derive(Component)]
 pub struct Explosion {
-    pub explodee: EntityId
+    pub explodee: EntityId,
 }

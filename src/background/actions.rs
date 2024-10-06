@@ -1,8 +1,10 @@
+use awsm_web::webgl::{BeginMode, BlendFactor, BufferData, BufferTarget, BufferUsage, GlToggle};
 
-use awsm_web::webgl::{BeginMode, GlToggle, BlendFactor, BufferData, BufferTarget, BufferUsage};
-
-use crate::{prelude::*, renderer::{Renderer, uvs::Uvs, buffers::Buffers}};
 use super::data::Background;
+use crate::{
+    prelude::*,
+    renderer::{buffers::Buffers, uvs::Uvs, Renderer},
+};
 
 impl Background {
     pub fn resize(&mut self, width: f64, height: f64) {

@@ -1,9 +1,13 @@
 pub mod game;
 
-use crate::{prelude::*, dom::ui::game::GameUi, enemy::{controller::data::EnemyController, data::Enemy}};
+use crate::{
+    dom::ui::game::GameUi,
+    enemy::{controller::data::EnemyController, data::Enemy},
+    prelude::*,
+};
 
 pub struct Ui {
-    pub phase: Mutable<UiPhase>
+    pub phase: Mutable<UiPhase>,
 }
 
 #[derive(Clone)]
@@ -15,23 +19,21 @@ pub enum UiPhase {
     Playing(Arc<GameUi>),
 }
 
-
-
 impl Ui {
     pub fn new() -> Arc<Self> {
         Arc::new(Self {
-            phase: Mutable::new(UiPhase::Loading(None))
+            phase: Mutable::new(UiPhase::Loading(None)),
         })
     }
 
     pub fn game_ui_unchecked(&self) -> Arc<GameUi> {
         match self.phase.get_cloned() {
             UiPhase::Playing(game_ui) => game_ui,
-            _ => panic!("Expected UiPhase::Playing")
+            _ => panic!("Expected UiPhase::Playing"),
         }
     }
     pub fn render(self: Arc<Self>) -> Dom {
-        static SECTION :LazyLock<String> = LazyLock::new(|| {
+        static SECTION: LazyLock<String> = LazyLock::new(|| {
             class! {
                 .style("display", "flex")
                 .style("flex-direction", "column")

@@ -3,7 +3,10 @@ use std::pin::Pin;
 use futures_signals::signal::always;
 use web_sys::HtmlElement;
 
-use crate::{dom::util::mixins::{handle_on_click, set_on_hover, MixinFnOnce}, prelude::*};
+use crate::{
+    dom::util::mixins::{handle_on_click, set_on_hover, MixinFnOnce},
+    prelude::*,
+};
 
 #[derive(Clone, Copy, PartialEq, Debug)]
 pub enum ButtonSize {

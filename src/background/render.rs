@@ -1,8 +1,10 @@
+use awsm_web::webgl::{BeginMode, BlendFactor, BufferData, BufferTarget, BufferUsage, GlToggle};
 
-use awsm_web::webgl::{BeginMode, GlToggle, BlendFactor, BufferData, BufferTarget, BufferUsage};
-
-use crate::{prelude::*, renderer::{Renderer, uvs::Uvs, buffers::Buffers}};
 use super::data::Background;
+use crate::{
+    prelude::*,
+    renderer::{buffers::Buffers, uvs::Uvs, Renderer},
+};
 
 impl Background {
     pub fn render(&self, renderer: &mut Renderer) -> Result<()> {
@@ -23,17 +25,19 @@ impl Background {
             ),
         )?;
 
-        let mut model_matrix_data: [f32;16] = [0.0;16];
-
+        let mut model_matrix_data: [f32; 16] = [0.0; 16];
 
         for (idx, texture_id) in self.texture_ids[0].iter().enumerate() {
-
-            let mat = nalgebra_glm::translate(&Mat4::identity(), &Vec3::new(-self.width / 2.0, -self.height / 2.0, (idx as f32)));
+            let mat = nalgebra_glm::translate(
+                &Mat4::identity(),
+                &Vec3::new(-self.width / 2.0, -self.height / 2.0, (idx as f32)),
+            );
 
             mat.write_to_vf32(&mut model_matrix_data);
             renderer.upload_uniform_mat_4_name("u_model", &model_matrix_data)?;
             if idx == 2 {
-                renderer.upload_uniform_fvals_2_name("u_uv_offset", (self.cloud_offset as f32, 0.0));
+                renderer
+                    .upload_uniform_fvals_2_name("u_uv_offset", (self.cloud_offset as f32, 0.0));
             } else {
                 renderer.upload_uniform_fvals_2_name("u_uv_offset", (0.0, 0.0));
             }

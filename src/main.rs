@@ -1,57 +1,100 @@
 #![allow(dead_code)]
 #![allow(warnings)]
 
-pub mod prelude;
-pub mod route;
-pub mod config;
-pub mod utils;
-pub mod dom;
-pub mod media;
-pub mod renderer;
-pub mod controller;
-pub mod background;
-pub mod camera;
-pub mod tick;
-pub mod enemy;
-pub mod logging;
-pub mod rand_helpers;
-pub mod spritesheet;
-pub mod projectiles;
-pub mod delete;
-pub mod layout;
-pub mod bomber;
-pub mod explosion;
-pub mod collision;
 pub mod animation;
-pub mod game_over;
 pub mod audio;
-
+pub mod background;
+pub mod bomber;
+pub mod camera;
+pub mod collision;
+pub mod config;
+pub mod controller;
+pub mod delete;
+pub mod dom;
+pub mod enemy;
+pub mod explosion;
+pub mod game_over;
+pub mod layout;
+pub mod logging;
+pub mod media;
+pub mod prelude;
+pub mod projectiles;
+pub mod rand_helpers;
+pub mod renderer;
+pub mod route;
+pub mod spritesheet;
+pub mod tick;
+pub mod utils;
 
 use std::{borrow::BorrowMut, sync::atomic::AtomicU64};
 
 use audio::{audio_event_process_sys, AudioEventQueue, AudioPlayer};
-use background::{systems::background_move_sys, data::{Background, BackgroundViewMut}};
+use awsm_web::{
+    tick::{MainLoop, MainLoopOptions, Raf},
+    webgl::ResizeStrategy,
+};
+use background::{
+    data::{Background, BackgroundViewMut},
+    systems::background_move_sys,
+};
 use bomber::{data::Bomber, systems::bomber_drop_sys};
-use camera::{Camera, systems::camera_update_ubo_sys, CameraViewMut};
-use collision::{debug::CollisionDebugger, systems::{update_collider_sys, detect_geometric_collision_sys, pixel_collision_check_sys, pixel_collision_render_sys}, data::CollisionEventQueue};
+use camera::{systems::camera_update_ubo_sys, Camera, CameraViewMut};
+use collision::{
+    data::CollisionEventQueue,
+    debug::CollisionDebugger,
+    systems::{
+        detect_geometric_collision_sys, pixel_collision_check_sys, pixel_collision_render_sys,
+        update_collider_sys,
+    },
+};
 use config::CONFIG;
+use controller::{
+    listeners::InputListeners, queue::InputQueue, systems::controller_process_queue_sys,
+};
 use delete::systems::delete_sys;
-use enemy::{animation::systems::enemy_animation_sys, controller::systems::{enemy_controller_physics_sys}, data::{Enemy}, destroy::enemy_destroy_event_sys, launcher::{data::LauncherSide, systems::launcher_animation_sys}, physics::systems::{enemy_position_sys}, select::enemy_select_event_sys, spawner::{EnemySpawner, actions::{spawn_enemies, spawn_launcher}}};
-use explosion::{data::ExplosionSpawner, systems::explosion_spawn_sys, animation::explosion_animation_sys};
+use dom::{
+    theme,
+    ui::{
+        game::{GameUi, GameUiPhase},
+        UiPhase,
+    },
+    DomState, DomView,
+};
+use enemy::{
+    animation::systems::enemy_animation_sys,
+    controller::systems::enemy_controller_physics_sys,
+    data::Enemy,
+    destroy::enemy_destroy_event_sys,
+    launcher::{data::LauncherSide, systems::launcher_animation_sys},
+    physics::systems::enemy_position_sys,
+    select::enemy_select_event_sys,
+    spawner::{
+        actions::{spawn_enemies, spawn_launcher},
+        EnemySpawner,
+    },
+};
+use explosion::{
+    animation::explosion_animation_sys, data::ExplosionSpawner, systems::explosion_spawn_sys,
+};
 use game_over::systems::game_over_sys;
+use gloo_events::EventListener;
 use gloo_timers::future::TimeoutFuture;
 use layout::systems::flush_layout_sys;
-use prelude::*;
-use awsm_web::{webgl::ResizeStrategy, tick::{MainLoop, MainLoopOptions, Raf}};
-use controller::{listeners::InputListeners, queue::InputQueue, systems::controller_process_queue_sys};
-use gloo_events::EventListener;
 use media::Media;
-use projectiles::{data::ProjectileSpawner, systems::{projectile_spawn_sys, projectile_physics_sys}};
-use renderer::{Renderer, RendererViewMut, systems::render_sys, shaders::Shaders, framebuffers::FrameBuffers};
-use tick::{UpdateTick, BeginTick, UpdateTickViewMut, BeginTickViewMut, DrawTickViewMut, DrawTick, EndTickViewMut, EndTick, PauseTickView, PauseTick};
-use wasm_bindgen_futures::spawn_local;
-use dom::{theme, ui::{game::{GameUi, GameUiPhase}, UiPhase}, DomState, DomView};
+use prelude::*;
+use projectiles::{
+    data::ProjectileSpawner,
+    systems::{projectile_physics_sys, projectile_spawn_sys},
+};
+use renderer::{
+    framebuffers::FrameBuffers, shaders::Shaders, systems::render_sys, Renderer, RendererViewMut,
+};
 use shipyard_scenegraph::init::init_scenegraph;
+use tick::{
+    BeginTick, BeginTickViewMut, DrawTick, DrawTickViewMut, EndTick, EndTickViewMut, PauseTick,
+    PauseTickView, UpdateTick, UpdateTickViewMut,
+};
+use wasm_bindgen_futures::spawn_local;
 use web_sys::console::clear;
 
 // async lib w/ wasm_bindgen(start) is waiting on https://github.com/thedodd/trunk/issues/575
@@ -103,7 +146,6 @@ async fn start() {
         world.add_unique(DrawTick::default());
         world.add_unique(EndTick::default());
         world.add_unique(PauseTick::Running);
-
     }
 
     Workload::new("controller")
@@ -147,42 +189,40 @@ async fn start() {
         .add_to_world(&world)
         .unwrap_ext();
 
-    Workload::new("end")
-        .add_to_world(&world)
-        .unwrap_ext();
+    Workload::new("end").add_to_world(&world).unwrap_ext();
 
     init_scenegraph::<Vec3, Quat, Mat4, f32>(&world);
-
 
     let on_resize = {
         let world = Arc::clone(&world);
         move |_: &web_sys::Event| {
             // This is a very heavy operation - at least in theory, for example we may want to recreate framebuffers
             // So only run it when the event is really triggered (i.e. startup, user resizes browser, etc.)
-            world.run(|dom: DomView, mut renderer: RendererViewMut, mut camera: CameraViewMut, mut background: BackgroundViewMut| {
-                let (width, height) = dom.window_size();
-                renderer.resize(ResizeStrategy::All(width, height));
-                renderer.resize_framebuffers();
-                camera.resize(width as f64, height as f64);
-                background.resize(width as f64, height as f64);
-
-
-            });
+            world.run(
+                |dom: DomView,
+                 mut renderer: RendererViewMut,
+                 mut camera: CameraViewMut,
+                 mut background: BackgroundViewMut| {
+                    let (width, height) = dom.window_size();
+                    renderer.resize(ResizeStrategy::All(width, height));
+                    renderer.resize_framebuffers();
+                    camera.resize(width as f64, height as f64);
+                    background.resize(width as f64, height as f64);
+                },
+            );
         }
     };
 
     on_resize(&web_sys::Event::new("").unwrap_ext());
-
 
     let mut main_loop = MainLoop::new(
         MainLoopOptions::default(),
         {
             let world = Arc::clone(&world);
             move |time, delta| {
-
                 world.run_workload("controller").unwrap_ext();
                 if *world.borrow::<PauseTickView>().unwrap_ext() == PauseTick::Running {
-                    *world.borrow::<BeginTickViewMut>().unwrap_ext() = BeginTick{time, delta};
+                    *world.borrow::<BeginTickViewMut>().unwrap_ext() = BeginTick { time, delta };
                     world.run_workload("begin").unwrap_ext();
                 }
             }
@@ -190,11 +230,11 @@ async fn start() {
         {
             let world = Arc::clone(&world);
 
-
             move |delta| {
-
                 if *world.borrow::<PauseTickView>().unwrap_ext() == PauseTick::Running {
-                    let viewport = world.borrow::<RendererViewMut>().map(|renderer| renderer.get_viewport());
+                    let viewport = world
+                        .borrow::<RendererViewMut>()
+                        .map(|renderer| renderer.get_viewport());
                     if let Ok((_, _, viewport_width, viewport_height)) = viewport {
                         *world.borrow::<UpdateTickViewMut>().unwrap_ext() = UpdateTick {
                             delta,
@@ -210,7 +250,9 @@ async fn start() {
             let world = Arc::clone(&world);
             move |interpolation| {
                 if *world.borrow::<PauseTickView>().unwrap_ext() == PauseTick::Running {
-                    let viewport = world.borrow::<RendererViewMut>().map(|renderer| renderer.get_viewport());
+                    let viewport = world
+                        .borrow::<RendererViewMut>()
+                        .map(|renderer| renderer.get_viewport());
                     if let Ok((_, _, viewport_width, viewport_height)) = viewport {
                         *world.borrow::<DrawTickViewMut>().unwrap_ext() = DrawTick {
                             interpolation,
@@ -226,14 +268,14 @@ async fn start() {
             let world = Arc::clone(&world);
             move |fps, abort| {
                 if *world.borrow::<PauseTickView>().unwrap_ext() == PauseTick::Running {
-                    *world.borrow::<EndTickViewMut>().unwrap_ext() = EndTick {fps, abort};
+                    *world.borrow::<EndTickViewMut>().unwrap_ext() = EndTick { fps, abort };
                     world.run_workload("end").unwrap_ext();
                 }
             }
         },
     );
 
-    // accumulted amount of time lost due to visibility pause which fully stops the ticker. 
+    // accumulted amount of time lost due to visibility pause which fully stops the ticker.
     // Manual pause doesn't affect the ticker (and in fact needs it to do things like handle input to unpause)
     let pause_ms_acc = Arc::new(AtomicU64::new(0));
 
@@ -251,43 +293,70 @@ async fn start() {
                 let pause_tick = &mut *pause_tick;
                 match dom.document.visibility_state() {
                     web_sys::VisibilityState::Hidden => {
-                        *pause_tick = PauseTick::LostVisibility{
+                        *pause_tick = PauseTick::LostVisibility {
                             timestamp: dom.window.performance().unwrap_ext().now(),
-                            previous: Box::new(pause_tick.clone())
+                            previous: Box::new(pause_tick.clone()),
                         }
-                    },
+                    }
                     web_sys::VisibilityState::Visible => {
-                        if let PauseTick::LostVisibility{timestamp, previous} = pause_tick {
+                        if let PauseTick::LostVisibility {
+                            timestamp,
+                            previous,
+                        } = pause_tick
+                        {
                             let timestamp = *timestamp;
                             let previous = previous.clone();
-                            *pause_tick = *previous; 
+                            *pause_tick = *previous;
                             let diff = dom.window.performance().unwrap_ext().now() - timestamp;
-                            pause_ms_acc.fetch_add(diff.round() as u64, std::sync::atomic::Ordering::SeqCst);
+                            pause_ms_acc.fetch_add(
+                                diff.round() as u64,
+                                std::sync::atomic::Ordering::SeqCst,
+                            );
                         }
-                    },
+                    }
                     _ => {
                         log::warn!("Unknown visibility state");
-                    },
+                    }
                 }
             });
         }
     };
 
-
     // these just run forever
     std::mem::forget(Box::new(tick));
     std::mem::forget(Box::new(InputListeners::new(Arc::clone(&world))));
-    EventListener::new(&world.borrow::<DomView>().unwrap_ext().window, "resize", on_resize).forget();
-    EventListener::new(&world.borrow::<DomView>().unwrap_ext().window, "visibilitychange", on_visibility).forget();
+    EventListener::new(
+        &world.borrow::<DomView>().unwrap_ext().window,
+        "resize",
+        on_resize,
+    )
+    .forget();
+    EventListener::new(
+        &world.borrow::<DomView>().unwrap_ext().window,
+        "visibilitychange",
+        on_visibility,
+    )
+    .forget();
 
     // Update the UI - and we're off!
-    world.borrow::<DomView>().unwrap_ext().ui.phase.set(UiPhase::Playing(GameUi::new(Arc::clone(&world))));
+    world
+        .borrow::<DomView>()
+        .unwrap_ext()
+        .ui
+        .phase
+        .set(UiPhase::Playing(GameUi::new(Arc::clone(&world))));
     spawn_enemies(&world);
     spawn_launcher(&world, LauncherSide::Left);
     spawn_launcher(&world, LauncherSide::Right);
 
     if let Some(phase) = CONFIG.initial_game_phase {
-        world.borrow::<DomView>().unwrap_ext().ui.game_ui_unchecked().phase.set_neq(Some(phase));
+        world
+            .borrow::<DomView>()
+            .unwrap_ext()
+            .ui
+            .game_ui_unchecked()
+            .phase
+            .set_neq(Some(phase));
     }
 }
 
@@ -304,4 +373,3 @@ cfg_if::cfg_if! {
         }
     }
 }
-

@@ -1,11 +1,15 @@
-use crate::{config::CONFIG, prelude::*, spritesheet::{self, SpriteSheet}};
+use crate::{
+    config::CONFIG,
+    prelude::*,
+    spritesheet::{self, SpriteSheet},
+};
 
 #[derive(Component, Debug, Clone, Default)]
 pub struct Animation {
     pub index: usize,
     pub timeout: Option<f64>,
     pub len: usize,
-    pub cell_duration: f64
+    pub cell_duration: f64,
 }
 
 impl Animation {
@@ -20,6 +24,5 @@ impl Animation {
         self.timeout = Some(spritesheet.cell_duration);
         self.len = spritesheet.cells.len();
         self.cell_duration = spritesheet.cell_duration;
-
     }
 }

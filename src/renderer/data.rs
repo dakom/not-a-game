@@ -3,9 +3,16 @@ use std::ops::{Deref, DerefMut};
 use awsm_web::webgl::WebGl2Renderer;
 use web_sys::WebGl2RenderingContext;
 
-use crate::{prelude::*, dom::{DomState, ui::UiPhase}};
+use crate::{
+    dom::{ui::UiPhase, DomState},
+    prelude::*,
+};
 
-use super::{shaders::Shaders, buffers::Buffers, framebuffers::{FrameBuffers, self}};
+use super::{
+    buffers::Buffers,
+    framebuffers::{self, FrameBuffers},
+    shaders::Shaders,
+};
 
 pub type RendererView<'a> = NonSendSync<UniqueView<'a, Renderer>>;
 pub type RendererViewMut<'a> = NonSendSync<UniqueViewMut<'a, Renderer>>;
@@ -25,7 +32,8 @@ impl Renderer {
         let mut gl = WebGl2Renderer::new(dom.create_gl_context())?;
 
         // these must be set right away, _before_ shaders are compiled etc.
-        gl.hardcoded_ubo_locations.insert("ubo_camera".to_string(), Self::UBO_CAMERA);  
+        gl.hardcoded_ubo_locations
+            .insert("ubo_camera".to_string(), Self::UBO_CAMERA);
 
         dom.ui.phase.set(UiPhase::Buffers);
         let buffers = Buffers::new(&mut gl)?;
@@ -33,9 +41,8 @@ impl Renderer {
         dom.ui.phase.set(UiPhase::Shaders);
         let shaders = Shaders::compile(&mut gl, &buffers)?;
 
-
-        Ok(Self { 
-            gl, 
+        Ok(Self {
+            gl,
             shaders,
             buffers,
             framebuffers: None,
