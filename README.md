@@ -1,11 +1,11 @@
 # [Play Now](https://dakom.github.io/not-a-game)  
-# [Read the article](https://dakom.github.io/not-a-game/about.html)
+# [Read the article](https://dakom.github.io/not-a-game/media/html/about.html)
 
 ## Tech
 
 * [Shipyard ECS](https://github.com/leudz/shipyard)
-* [Raw WebGL Shaders](./src/renderer/shaders)
-* [Pixel-Perfect collision detection (in GPU)](./src/collision/intersection.rs#L73)
+* [Raw WebGL Renderer](./src/renderer)
+* [Pixel-Perfect collision detection (in GPU)](./src/collision/intersection.rs#L74)
 * [Dominator UI](https://github.com/Pauan/rust-dominator)
 * 100% Pure Rust :D
 

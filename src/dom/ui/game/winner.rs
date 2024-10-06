@@ -40,7 +40,7 @@ impl Winner {
 
         static CONTENT: LazyLock<String> = LazyLock::new(|| {
             class! {
-                .style("width", "50%")
+                .style("width", "80%")
                 .style("height", "50%")
                 .style("background-color", Color::Whiteish.hex_str())
                 .style("display", "flex")
