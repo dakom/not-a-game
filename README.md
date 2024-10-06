@@ -5,7 +5,7 @@
 
 * [Shipyard ECS](https://github.com/leudz/shipyard)
 * [Raw WebGL Shaders](./src/renderer/shaders)
-* [Pixel-Perfect collision detection (in GPU)](./src/collision#L73)
+* [Pixel-Perfect collision detection (in GPU)](./src/collision/intersection.rs#L73)
 * [Dominator UI](https://github.com/Pauan/rust-dominator)
 * 100% Pure Rust :D
 

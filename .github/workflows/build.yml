@@ -57,10 +57,13 @@ jobs:
           version: 'latest' 
       
       - name: Build frontend
-        run: trunk build --no-default-features --features dev --release --public-url=https://dakom.github.io/not-a-game/
+        run: trunk build --release --public-url=https://dakom.github.io/not-a-game/
       
       - name: Copy for 404 redirect
         run: cp ./dist/index.html ./dist/404.html
+
+      - name: Copy media folder
+        run: cp -r ./media ./dist
 
       - name: Upload artifacts
         uses: actions/upload-pages-artifact@v3
