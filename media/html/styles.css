@@ -53,7 +53,9 @@ main {
 }
 
 .button {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     border-radius: 8px;
     padding: 1rem;
     background-color: var(--color-blue);

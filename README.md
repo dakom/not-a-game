@@ -1,4 +1,4 @@
-# [Play Now](https://dakom.github.io/not-a-game)  
+# [Play Now (desktop only)](https://dakom.github.io/not-a-game)
 # [Read the article](https://dakom.github.io/not-a-game/media/html/about.html)
 
 # Not a game
