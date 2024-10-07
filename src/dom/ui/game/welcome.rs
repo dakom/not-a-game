@@ -48,7 +48,7 @@ impl Welcome {
                 .style("background-color", Color::Whiteish.hex_str())
                 .style("display", "flex")
                 .style("border-radius", "8px")
-                .style("gap", "1rem")
+                .style("gap", "2rem")
                 .style("flex-direction", "column")
                 .style("justify-content", "center")
                 .style("align-items", "center")
@@ -113,7 +113,12 @@ impl Welcome {
                                 .with_on_click(clone!(state => move || {
                                     web_sys::window().unwrap_ext().location().set_href(CONFIG.html_url("about.html").as_str()).unwrap();
                                 }))
-                                .render()
+                                .render(),
+                            html!("i", {
+                                .class(&*TEXT_SIZE_SM)
+                                .style("margin-top", "2rem")
+                                .text("This game, if you choose badly at least, is for desktop only")
+                            }),
                         ])
                     }))
                 }))
