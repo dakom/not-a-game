@@ -3,9 +3,11 @@
 
 # Not a game
 
-Best to read the article or just dive in to get the gist. It's some form of self expression and statements about the war in Israel, by making a browser game in Rust, commemorating October 7th one year later in a way that feels cathartic for me.
+Some mixture of therapy, art, activism, and game development, related to the war in Israel - specifically commemorating October 7th (this was released exactly 1 year later).
 
-I began the idea many months ago, but didn't feel like anyone would get it or read the article... since it was mainly for me, it went unpublished. I'm now polishing it up and putting it out there, maybe someone will appreciate it.
+Best to read the article or just dive in to get the gist. It's some form of self expression, by making a browser game in Rust with an explanatory essay, in a way that feels cathartic for me.
+
+I began the idea many months ago, but didn't feel like anyone would get it or read it... since this was mainly for my own way of coming to grips with the world I see, kinda like writing some thoughts on a napkin, it went unpublished. I'm now polishing it up and putting it out there, maybe someone will appreciate it.
 
 ## Tech
 
