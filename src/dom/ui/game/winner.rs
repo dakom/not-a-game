@@ -66,10 +66,13 @@ impl Winner {
                                 .text("Congratulations! You've won the game!")
                             }),
                             html!("div", {
-                                .text("Israel is recognized by all its neighbors as the ancestral homeland of the Jewish people")
+                                .text("Israel is recognized internationally as the ancestral homeland of the Jewish people")
                             }),
                             html!("div", {
                                 .text("Palestine is a blossoming utopia, over in eastern Jordan, where the people are free and happy")
+                            }),
+                            html!("div", {
+                                .text("Everyone is welcome everywhere, the world is at peace, and you are a hero!")
                             }),
                             html!("div", {
                                 .text("That wasn't so hard, now was it?")
