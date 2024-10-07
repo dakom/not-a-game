@@ -1,6 +1,12 @@
 # [Play Now](https://dakom.github.io/not-a-game)  
 # [Read the article](https://dakom.github.io/not-a-game/media/html/about.html)
 
+# Not a game
+
+Best to read the article or just dive in to get the gist. It's some form of self expression and statements about the war in Israel, by making a browser game in Rust, commemorating October 7th one year later in a way that feels cathartic for me.
+
+I began the idea many months ago, but didn't feel like anyone would get it or read the article... since it was mainly for me, it went unpublished. I'm now polishing it up and putting it out there, maybe someone will appreciate it.
+
 ## Tech
 
 * [Shipyard ECS](https://github.com/leudz/shipyard)
